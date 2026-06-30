@@ -4,47 +4,52 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Anchie Ama — Content Approval Engine</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Fredoka+One&family=Pacifico&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --bg: #0d0820;
-      --nav-bg: #130d2e;
-      --surface: #1a1038;
-      --surface2: #201448;
-      --surface3: #271a58;
-      --border: #2e1d68;
-      --border2: #3d2880;
+      --bg:           #0c0b09;
+      --nav-bg:       #100f0c;
+      --surface:      #161410;
+      --surface2:     #1d1b16;
+      --surface3:     #252118;
+      --border:       #2c2820;
+      --border2:      #3a342a;
 
-      --signal: #ff6bbd;
-      --signal-dim: rgba(255, 107, 189, 0.12);
-      --signal-glow: rgba(255, 107, 189, 0.08);
-      --signal-solid: #e0509f;
+      --gold:         #c9a063;
+      --gold-dim:     rgba(201, 160, 99, 0.10);
+      --gold-glow:    rgba(201, 160, 99, 0.06);
+      --gold-solid:   #a8813c;
+      --gold-light:   #e2c48a;
 
-      --amber: #ffb347;
-      --amber-dim: rgba(255, 179, 71, 0.1);
+      --signal:       var(--gold);
+      --signal-dim:   var(--gold-dim);
 
-      --blue: #7dd3fc;
-      --blue-dim: rgba(125, 211, 252, 0.1);
+      --amber:        #d4a84b;
+      --amber-dim:    rgba(212, 168, 75, 0.10);
 
-      --red: #ff7eb3;
-      --red-dim: rgba(255, 126, 179, 0.1);
-      --red-solid: #ff7eb3;
+      --blue:         #7bafc4;
+      --blue-dim:     rgba(123, 175, 196, 0.10);
 
-      --green: #86efac;
-      --green-dim: rgba(134, 239, 172, 0.1);
+      --red:          #c47b7b;
+      --red-dim:      rgba(196, 123, 123, 0.10);
 
-      --text: #ffe8f4;
-      --text-dim: #c09ab8;
-      --text-dimmer: #6d4a7a;
+      --green:        #7bac8a;
+      --green-dim:    rgba(123, 172, 138, 0.10);
 
-      --mono: 'Nunito', sans-serif;
-      --display: 'Fredoka One', cursive;
-      --sans: 'Nunito', sans-serif;
+      --text:         #ede5d8;
+      --text-dim:     #8a8070;
+      --text-dimmer:  #3f3a30;
 
-      --glow-shadow: 0 0 24px rgba(255, 107, 189, 0.3);
-      --panel-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-      --radius: 16px;
-      --radius-sm: 10px;
+      --display:      'Cormorant Garamond', Georgia, serif;
+      --sans:         'DM Sans', system-ui, sans-serif;
+      --mono:         'DM Mono', 'Courier New', monospace;
+
+      --shadow-sm:    0 2px 8px rgba(0,0,0,0.4);
+      --shadow-md:    0 6px 24px rgba(0,0,0,0.5);
+      --shadow-lg:    0 16px 48px rgba(0,0,0,0.6);
+      --gold-shadow:  0 0 32px rgba(201, 160, 99, 0.14);
+      --radius:       14px;
+      --radius-sm:    8px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -54,14 +59,14 @@
       color: var(--text);
       font-family: var(--sans);
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.65;
       overflow-x: hidden;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
-    /* Subtle star-dots background */
+    /* Ambient background */
     .grid-bg {
       position: fixed;
       inset: 0;
@@ -69,249 +74,209 @@
       z-index: 0;
       overflow: hidden;
     }
-
     .grid-bg::before {
       content: '';
       position: absolute;
       inset: 0;
       background-image:
-        radial-gradient(circle at 15% 20%, rgba(255, 107, 189, 0.06) 0%, transparent 50%),
-        radial-gradient(circle at 85% 80%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(255, 179, 71, 0.04) 0%, transparent 60%);
+        radial-gradient(ellipse 60% 40% at 10% 10%, rgba(201,160,99,0.04) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 90% 85%, rgba(201,160,99,0.03) 0%, transparent 70%),
+        radial-gradient(ellipse 80% 50% at 50% 50%, rgba(40,30,15,0.5) 0%, transparent 100%);
     }
-
     .grid-bg::after {
       content: '';
       position: absolute;
       inset: 0;
       background-image:
-        radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px),
-        radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
-      background-size: 60px 60px, 30px 30px;
-      background-position: 0 0, 15px 15px;
+        radial-gradient(circle, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 40px 40px;
     }
 
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--signal-solid); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--gold-solid); }
 
-    /* ===== PASSWORD GATE ===== */
+    /* ── PASSWORD GATE ───────────────────────────────────── */
     #password-gate {
       position: fixed;
       inset: 0;
-      background: rgba(13, 8, 32, 0.97);
-      backdrop-filter: blur(16px);
+      background: rgba(12, 11, 9, 0.96);
+      backdrop-filter: blur(20px);
       z-index: 10000;
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
-
     #password-gate.unlocked {
       opacity: 0;
       pointer-events: none;
-      transform: scale(1.05);
+      transform: scale(1.04);
     }
 
     .auth-card {
       background: var(--surface);
-      border: 1.5px solid var(--border2);
-      padding: 40px;
+      border: 1px solid var(--border2);
+      padding: 48px 44px;
       width: 100%;
-      max-width: 420px;
-      border-radius: 24px;
-      box-shadow: var(--panel-shadow), 0 0 60px rgba(255, 107, 189, 0.1);
+      max-width: 400px;
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg), var(--gold-shadow);
       position: relative;
       overflow: hidden;
     }
-
     .auth-card::before {
       content: '';
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 3px;
-      background: linear-gradient(90deg, #ff6bbd, #ffb347, #7c3aed, #ff6bbd);
-      background-size: 200% 100%;
-      animation: shimmer 3s linear infinite;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0.7;
+    }
+    .auth-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 60%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,160,99,0.2), transparent);
     }
 
-    @keyframes shimmer {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-
-    /* Anchie Ama Logo — animated text on pink */
     .auth-logo {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 24px;
-    }
-
-    .anchie-logo-badge {
-      background: linear-gradient(135deg, #ff6bbd, #ff8fd4);
-      border-radius: 16px;
-      padding: 12px 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      box-shadow: 0 4px 20px rgba(255, 107, 189, 0.4);
-      position: relative;
-      overflow: hidden;
+      margin-bottom: 36px;
+      gap: 10px;
     }
-
-    .anchie-logo-badge::before {
-      content: '✦';
-      position: absolute;
-      top: 4px; left: 8px;
-      font-size: 8px;
-      color: rgba(255,255,255,0.5);
-      animation: twinkle 2s ease-in-out infinite;
+    .auth-wordmark {
+      font-family: var(--display);
+      font-size: 42px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--gold-light);
+      letter-spacing: 2px;
+      line-height: 1;
     }
-
-    .anchie-logo-badge::after {
-      content: '✦';
-      position: absolute;
-      bottom: 4px; right: 10px;
-      font-size: 6px;
-      color: rgba(255,255,255,0.4);
-      animation: twinkle 2.5s ease-in-out infinite reverse;
+    .auth-wordmark span {
+      color: var(--gold);
+      font-weight: 500;
     }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.3; transform: scale(0.8); }
-      50% { opacity: 1; transform: scale(1.2); }
+    .auth-divider {
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 4px 0;
     }
-
-    .anchie-logo-text {
-      font-family: 'Pacifico', cursive;
-      font-size: 26px;
-      color: #fff;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      letter-spacing: 1px;
-      animation: logoFloat 3s ease-in-out infinite;
-    }
-
-    .anchie-logo-sub {
+    .auth-eyebrow {
       font-family: var(--sans);
       font-size: 9px;
-      color: rgba(255,255,255,0.8);
+      font-weight: 600;
+      letter-spacing: 4px;
       text-transform: uppercase;
-      letter-spacing: 3px;
-      font-weight: 700;
-      margin-top: 2px;
+      color: var(--text-dim);
     }
 
-    @keyframes logoFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-2px); }
-    }
-
-    .auth-title {
+    .auth-heading {
       font-family: var(--display);
       font-size: 22px;
-      color: #fff;
-      margin-bottom: 4px;
+      font-weight: 400;
+      color: var(--text);
       text-align: center;
+      margin-bottom: 6px;
     }
-
-    .auth-subtitle {
+    .auth-sub {
       font-size: 12px;
+      font-weight: 400;
       color: var(--text-dim);
       text-align: center;
       margin-bottom: 32px;
-      font-weight: 600;
+      letter-spacing: 0.3px;
     }
-
-    .form-group { margin-bottom: 20px; }
 
     .form-label {
       display: block;
-      font-size: 11px;
-      font-weight: 700;
+      font-size: 10px;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
+      letter-spacing: 2px;
       color: var(--text-dimmer);
       margin-bottom: 8px;
     }
-
     .password-input {
       width: 100%;
       background: var(--surface2);
-      border: 1.5px solid var(--border2);
-      color: #fff;
-      padding: 14px 20px;
+      border: 1px solid var(--border2);
+      color: var(--text);
+      padding: 14px 18px;
       font-family: var(--mono);
-      font-size: 18px;
-      letter-spacing: 0.5em;
+      font-size: 20px;
+      letter-spacing: 0.4em;
       text-align: center;
-      border-radius: 12px;
-      transition: all 0.3s ease;
+      border-radius: var(--radius-sm);
+      transition: all 0.25s ease;
+      margin-bottom: 20px;
     }
-
     .password-input:focus {
       outline: none;
-      border-color: var(--signal);
-      box-shadow: 0 0 0 3px rgba(255, 107, 189, 0.15);
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px var(--gold-dim);
       background: var(--surface3);
     }
 
     .auth-btn {
       width: 100%;
-      background: linear-gradient(135deg, #ff6bbd, #e050a0);
-      border: none;
-      color: #fff;
-      padding: 15px;
-      font-family: var(--display);
-      font-size: 16px;
-      letter-spacing: 1px;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      padding: 14px;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
       cursor: pointer;
-      border-radius: 12px;
+      border-radius: var(--radius-sm);
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 8px;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 16px rgba(255, 107, 189, 0.4);
+      gap: 10px;
+      transition: all 0.25s ease;
     }
-
     .auth-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(255, 107, 189, 0.5);
+      background: var(--gold-dim);
+      box-shadow: var(--gold-shadow);
+      color: #fff;
     }
-
-    .auth-btn:active { transform: translateY(0); }
 
     .error-msg {
       color: var(--red);
-      font-size: 12px;
-      font-weight: 600;
-      margin-top: 12px;
+      font-size: 11px;
+      font-weight: 500;
+      margin-top: 14px;
       text-align: center;
-      min-height: 18px;
+      min-height: 16px;
       opacity: 0;
       transition: opacity 0.3s ease;
+      letter-spacing: 0.3px;
     }
-
     .error-msg.visible { opacity: 1; }
 
-    /* ===== NAVIGATION ===== */
+    /* ── NAV ─────────────────────────────────────────────── */
     nav {
       background: var(--nav-bg);
-      border-bottom: 1.5px solid var(--border);
+      border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
       z-index: 100;
-      padding: 0 16px;
-      height: 60px;
+      padding: 0 20px;
+      height: 58px;
       display: flex;
       justify-content: center;
       align-items: center;
     }
-
     .nav-container {
-      max-width: 600px;
+      max-width: 620px;
       width: 100%;
       display: flex;
       justify-content: space-between;
@@ -319,32 +284,27 @@
       height: 100%;
     }
 
-    .logo-container {
+    .nav-brand {
       display: flex;
-      align-items: center;
-      height: 100%;
+      flex-direction: column;
+      gap: 0;
+      line-height: 1;
     }
-
-    .nav-logo-badge {
-      background: linear-gradient(135deg, #ff6bbd, #ff8fd4);
-      border-radius: 10px;
-      padding: 6px 14px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 2px 10px rgba(255, 107, 189, 0.3);
+    .nav-wordmark {
+      font-family: var(--display);
+      font-size: 22px;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--gold-light);
+      letter-spacing: 1px;
     }
-
-    .nav-logo-text {
-      font-family: 'Pacifico', cursive;
-      font-size: 16px;
-      color: #fff;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.2);
-    }
-
-    .nav-logo-star {
-      font-size: 10px;
-      animation: twinkle 2s ease-in-out infinite;
+    .nav-tagline {
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-dimmer);
+      margin-top: 1px;
     }
 
     .menu-dropdown-container {
@@ -353,57 +313,49 @@
       display: flex;
       align-items: center;
     }
-
     .menu-trigger-btn {
-      background: var(--surface2);
-      border: 1.5px solid var(--border2);
-      color: #fff;
-      padding: 8px 16px;
-      border-radius: 10px;
+      background: transparent;
+      border: 1px solid var(--border2);
+      color: var(--text-dim);
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
       font-family: var(--sans);
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 11px;
+      font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 8px;
       transition: all 0.2s ease;
+      letter-spacing: 0.5px;
     }
-
     .menu-trigger-btn:hover {
-      border-color: var(--signal);
-      box-shadow: 0 0 12px rgba(255, 107, 189, 0.2);
+      border-color: var(--gold);
+      color: var(--gold-light);
+      background: var(--gold-dim);
     }
-
-    .dropdown-chevron {
-      transition: transform 0.2s ease;
-      color: var(--text-dim);
-    }
-
+    .dropdown-chevron { transition: transform 0.2s ease; }
     .menu-dropdown-container.open .dropdown-chevron { transform: rotate(180deg); }
 
     .nav-dropdown-menu {
       position: absolute;
-      top: calc(100% + 8px);
+      top: calc(100% + 10px);
       right: 0;
-      background: rgba(19, 13, 46, 0.97);
-      backdrop-filter: blur(16px);
-      border: 1.5px solid var(--border2);
-      border-radius: 14px;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
       padding: 6px;
-      width: 210px;
-      box-shadow: var(--panel-shadow);
+      width: 200px;
+      box-shadow: var(--shadow-lg);
       display: none;
       flex-direction: column;
       gap: 2px;
       z-index: 1000;
-      transform-origin: top right;
-      animation: dropdownFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: dropDown 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-
-    @keyframes dropdownFadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
+    @keyframes dropDown {
+      from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .dropdown-item {
@@ -412,82 +364,99 @@
       gap: 10px;
       padding: 10px 12px;
       color: var(--text-dim);
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: 500;
       cursor: pointer;
-      border-radius: 10px;
-      transition: all 0.2s ease;
+      border-radius: var(--radius-sm);
+      transition: all 0.15s ease;
+      letter-spacing: 0.3px;
     }
+    .dropdown-item svg { color: var(--text-dimmer); transition: color 0.15s ease; }
+    .dropdown-item:hover { background: var(--surface3); color: var(--text); }
+    .dropdown-item:hover svg { color: var(--gold); }
+    .dropdown-item.active { background: var(--gold-dim); color: var(--gold-light); }
+    .dropdown-item.active svg { color: var(--gold); }
 
-    .dropdown-item svg { color: var(--text-dimmer); transition: color 0.2s ease; }
-    .dropdown-item:hover { background: var(--surface2); color: #fff; }
-    .dropdown-item:hover svg { color: var(--signal); }
-    .dropdown-item.active { background: var(--signal-dim); color: var(--signal); }
-    .dropdown-item.active svg { color: var(--signal); }
-
-    /* ===== FEED LAYOUT ===== */
+    /* ── FEED LAYOUT ─────────────────────────────────────── */
     .feed-grid {
-      max-width: 600px;
+      max-width: 620px;
       width: 100%;
-      margin: 20px auto;
-      padding: 0 14px;
+      margin: 32px auto;
+      padding: 0 16px;
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 20px;
+      position: relative;
+      z-index: 1;
     }
-
-    @media (min-width: 480px) { .feed-grid { margin: 28px auto; padding: 0 18px; gap: 22px; } }
+    @media (min-width: 480px) { .feed-grid { margin: 40px auto; padding: 0 20px; gap: 24px; } }
 
     .feed-header-row {
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
     }
-
+    .feed-eyebrow {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
     .feed-main-title {
       font-family: var(--display);
-      font-size: 22px;
-      color: #fff;
+      font-size: 30px;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text);
       letter-spacing: 0.5px;
+      line-height: 1.2;
     }
-
-    @media (min-width: 480px) { .feed-main-title { font-size: 26px; } }
+    @media (min-width: 480px) { .feed-main-title { font-size: 36px; } }
 
     .feed-status-meta {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text-dim);
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--text-dimmer);
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 10px;
     }
-
     .status-dot-separator { color: var(--border2); }
 
-    .feed-container { display: flex; flex-direction: column; gap: 14px; width: 100%; }
+    .feed-container { display: flex; flex-direction: column; gap: 16px; width: 100%; }
 
-    /* ===== POST CARDS ===== */
+    /* ── POST CARDS ──────────────────────────────────────── */
     .post-card {
       background: var(--surface);
-      border: 1.5px solid var(--border);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      box-shadow: var(--panel-shadow);
+      box-shadow: var(--shadow-md);
       display: flex;
       flex-direction: column;
       position: relative;
       overflow: hidden;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), max-height 0.4s ease;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1), max-height 0.4s ease;
       width: 100%;
       max-height: 1500px;
     }
-
+    .post-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border2), transparent);
+      transition: background 0.3s ease;
+    }
     .post-card.fade-out {
       opacity: 0;
-      transform: scale(0.92) translateY(-30px);
+      transform: scale(0.96) translateY(-20px);
       max-height: 0 !important;
       margin: 0 !important;
       padding: 0 !important;
@@ -495,146 +464,142 @@
       box-shadow: none !important;
       pointer-events: none;
     }
-
-    .post-card.approved { border-color: #86efac; box-shadow: 0 0 20px rgba(134, 239, 172, 0.15); }
-    .post-card.rejected { border-color: var(--amber); box-shadow: 0 0 16px rgba(255, 179, 71, 0.12); }
-    .post-card.redo_requested { border-color: var(--red); box-shadow: 0 0 16px rgba(255, 126, 179, 0.12); }
+    .post-card.approved { border-color: rgba(123,172,138,0.3); }
+    .post-card.approved::before { background: linear-gradient(90deg, transparent, rgba(123,172,138,0.4), transparent); }
+    .post-card.rejected { border-color: rgba(212,168,75,0.3); }
+    .post-card.rejected::before { background: linear-gradient(90deg, transparent, rgba(212,168,75,0.4), transparent); }
+    .post-card.redo_requested { border-color: rgba(196,123,123,0.3); }
+    .post-card.redo_requested::before { background: linear-gradient(90deg, transparent, rgba(196,123,123,0.4), transparent); }
 
     .post-card-header {
-      padding: 14px;
+      padding: 18px 20px 14px;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 8px;
+      gap: 10px;
     }
+    @media (min-width: 480px) { .post-card-header { padding: 20px 24px 16px; align-items: center; } }
 
-    @media (min-width: 480px) { .post-card-header { padding: 18px; align-items: center; } }
-
-    .post-author { display: flex; gap: 12px; align-items: center; }
-
+    .post-author { display: flex; gap: 14px; align-items: center; }
     .post-avatar {
-      width: 50px;
-      height: 50px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #ff6bbd, #ffb347);
-      border: 2px solid rgba(255, 107, 189, 0.4);
+      background: var(--surface3);
+      border: 1px solid var(--border2);
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative;
-      overflow: hidden;
       flex-shrink: 0;
-      font-family: 'Pacifico', cursive;
-      font-size: 16px;
-      color: #fff;
-    }
-
-    .post-avatar-img { width: 100%; height: 100%; object-fit: cover; }
-
-    .post-author-info { display: flex; flex-direction: column; text-align: left; }
-
-    .post-author-name {
-      font-weight: 800;
-      color: #fff;
+      font-family: var(--display);
       font-size: 15px;
+      font-style: italic;
+      color: var(--gold);
+      letter-spacing: 0;
+    }
+    .post-avatar-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .post-author-info { display: flex; flex-direction: column; text-align: left; }
+    .post-author-name {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 16px;
+      color: var(--text);
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
     }
-
-    .post-author-meta { font-size: 11px; color: var(--text-dim); font-weight: 600; margin-top: 1px; }
-
-    .badge-container { flex-shrink: 0; display: flex; justify-content: flex-end; }
-
+    .post-author-meta {
+      font-size: 11px;
+      color: var(--text-dim);
+      font-weight: 400;
+      margin-top: 1px;
+      letter-spacing: 0.2px;
+    }
+    .badge-container { flex-shrink: 0; }
     .badge-status {
-      font-size: 9px;
+      font-size: 8px;
       padding: 4px 10px;
-      letter-spacing: 0.5px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       border-radius: 20px;
-      font-weight: 800;
+      font-weight: 700;
       white-space: nowrap;
+      border: 1px solid;
     }
+    .status-pending  { background: var(--amber-dim); color: var(--amber); border-color: rgba(212,168,75,0.25); }
+    .status-approved { background: var(--green-dim); color: var(--green); border-color: rgba(123,172,138,0.25); }
+    .status-rejected { background: var(--amber-dim); color: var(--amber); border-color: rgba(212,168,75,0.25); }
+    .status-redo     { background: var(--red-dim);   color: var(--red);   border-color: rgba(196,123,123,0.25); }
 
-    .status-pending { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(255,179,71,0.3); }
-    .status-approved { background: var(--green-dim); color: var(--green); border: 1px solid rgba(134,239,172,0.3); }
-    .status-rejected { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(255,179,71,0.3); }
-    .status-redo { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255,126,179,0.3); }
-
-    /* ===== CONTENT BLOCK ===== */
+    /* ── CONTENT BLOCK ───────────────────────────────────── */
     .post-content-wrapper {
-      padding: 4px 14px 14px;
+      padding: 4px 20px 16px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
-
-    @media (min-width: 480px) { .post-content-wrapper { padding: 4px 18px 16px; } }
+    @media (min-width: 480px) { .post-content-wrapper { padding: 4px 24px 18px; } }
 
     .post-content-text {
       font-size: 13.5px;
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.7;
       white-space: pre-wrap;
       outline: none;
-      border: 1.5px solid transparent;
-      border-radius: 10px;
+      border: 1px solid transparent;
+      border-radius: var(--radius-sm);
       padding: 4px;
       transition: all 0.2s ease;
-      font-weight: 500;
+      font-weight: 400;
     }
-
     .post-content-text.editing-active {
       background: var(--surface2);
-      border-color: var(--signal);
-      box-shadow: 0 0 0 3px rgba(255, 107, 189, 0.1);
-      padding: 10px;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px var(--gold-dim);
+      padding: 12px;
     }
 
     .see-more-link, .see-less-link {
-      font-weight: 700;
-      color: var(--signal);
+      font-weight: 600;
+      color: var(--gold);
       cursor: pointer;
       margin-left: 2px;
       transition: color 0.2s ease;
+      font-size: 12px;
     }
-
-    .see-more-link:hover, .see-less-link:hover { color: #fff; text-decoration: underline; }
+    .see-more-link:hover, .see-less-link:hover { color: var(--gold-light); }
 
     .post-content-actions { display: flex; justify-content: flex-end; }
 
     .btn-edit-text-trigger {
       background: transparent;
-      border: 1.5px solid var(--border2);
-      color: var(--signal);
+      border: 1px solid var(--border2);
+      color: var(--text-dim);
       font-size: 10px;
-      font-weight: 700;
+      font-weight: 600;
       text-transform: uppercase;
-      padding: 5px 10px;
-      border-radius: 8px;
+      padding: 5px 12px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       transition: all 0.2s ease;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
     }
-
-    .btn-edit-text-trigger:hover { background: var(--signal-dim); border-color: var(--signal); }
-
+    .btn-edit-text-trigger:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
     .btn-edit-text-trigger.editing-btn-active {
-      background: var(--signal);
-      color: var(--bg);
-      border-color: var(--signal);
-      box-shadow: var(--glow-shadow);
+      background: var(--gold-dim);
+      color: var(--gold-light);
+      border-color: var(--gold);
     }
 
-    /* ===== MEDIA BOX ===== */
+    /* ── MEDIA BOX ───────────────────────────────────────── */
     .post-media-box {
       width: 100%;
-      background: #08051a;
-      border-top: 1.5px solid var(--border);
-      border-bottom: 1.5px solid var(--border);
+      background: #0a0907;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -642,7 +607,6 @@
       position: relative;
       min-height: 200px;
     }
-
     .post-media-image {
       width: 100%;
       height: auto;
@@ -650,37 +614,31 @@
       object-fit: contain;
       transition: opacity 0.3s ease;
     }
-
-    /* 9:16 video container — centered phone-width column */
     .video-media-box {
       width: 100%;
-      border-top: 1.5px solid var(--border);
-      border-bottom: 1.5px solid var(--border);
-      background: #08051a;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: #0a0907;
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 16px 16px 0;
     }
-
     .video-player-wrap {
       position: relative;
       width: 100%;
-      max-width: 230px; /* 9:16 at 230px wide = ~410px tall — fits one screen */
+      max-width: 230px;
     }
-
     .video-aspect-box {
       position: relative;
       width: 100%;
-      padding-bottom: 177.78%; /* 9:16 */
+      padding-bottom: 177.78%;
       overflow: hidden;
       background: #000;
-      border-radius: 12px;
-      box-shadow: 0 8px 28px rgba(0,0,0,0.6);
+      border-radius: 10px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.7);
     }
-
-    .video-aspect-box video,
-    .video-aspect-box iframe {
+    .video-aspect-box video, .video-aspect-box iframe {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -688,13 +646,11 @@
       border: none;
       object-fit: cover;
     }
-
     .video-open-link {
       display: flex;
       justify-content: center;
       padding: 10px 0 14px;
     }
-
     .media-fallback {
       position: absolute;
       inset: 0;
@@ -706,240 +662,238 @@
       text-align: center;
       background: var(--surface2);
       gap: 10px;
-      border-radius: 12px;
+      border-radius: 10px;
     }
+    .media-fallback-text { font-size: 11px; font-weight: 500; color: var(--text-dim); max-width: 280px; }
 
-    .media-fallback-text { font-size: 11px; font-weight: 600; color: var(--text-dim); max-width: 280px; }
-
-    /* ===== ACTION BUTTONS ===== */
+    /* ── ACTION BUTTONS ──────────────────────────────────── */
     .post-action-buttons {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      padding: 10px 6px;
-      border-top: 1.5px solid var(--border);
-      border-bottom: 1.5px solid var(--border);
+      padding: 12px 12px;
+      border-top: 1px solid var(--border);
       background: var(--surface2);
-      gap: 6px;
+      gap: 8px;
     }
 
     .action-btn-li {
-      background: var(--surface);
-      border: 1.5px solid var(--border);
+      background: transparent;
+      border: 1px solid var(--border2);
       color: var(--text-dim);
-      padding: 10px 4px;
+      padding: 10px 6px;
       font-size: 9px;
       font-family: var(--sans);
-      font-weight: 800;
+      font-weight: 600;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 5px;
-      border-radius: 12px;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      gap: 6px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
       text-transform: uppercase;
-      letter-spacing: 0.3px;
+      letter-spacing: 0.8px;
+    }
+    @media (min-width: 480px) {
+      .action-btn-li { flex-direction: row; gap: 6px; font-size: 10px; padding: 11px 10px; }
     }
 
-    @media (min-width: 480px) { .action-btn-li { flex-direction: row; gap: 6px; font-size: 11px; padding: 11px 10px; } }
+    .btn-approve-action { border-color: rgba(123,172,138,0.25); color: var(--green); }
+    .btn-approve-action:hover {
+      background: var(--green);
+      color: #0c1810;
+      border-color: var(--green);
+      box-shadow: 0 0 20px rgba(123,172,138,0.2);
+    }
 
-    .btn-approve-action { border-color: #86efac; color: var(--green); background: rgba(134, 239, 172, 0.03); }
-    .btn-approve-action:hover { background: #86efac; color: #052e16; box-shadow: 0 0 16px rgba(134, 239, 172, 0.3); border-color: #86efac; }
+    .btn-text-action { border-color: rgba(212,168,75,0.25); color: var(--amber); }
+    .btn-text-action:hover, .btn-text-action.active-action {
+      background: var(--amber);
+      color: #1a1000;
+      border-color: var(--amber);
+      box-shadow: 0 0 20px rgba(212,168,75,0.2);
+    }
 
-    .btn-text-action { border-color: var(--amber); color: var(--amber); background: rgba(255, 179, 71, 0.03); }
-    .btn-text-action:hover, .btn-text-action.active-action { background: var(--amber); color: #1a0a00; border-color: var(--amber); box-shadow: 0 0 14px rgba(255, 179, 71, 0.3); }
+    .btn-redo-action { border-color: rgba(196,123,123,0.25); color: var(--red); }
+    .btn-redo-action:hover {
+      background: var(--red);
+      color: #fff;
+      border-color: var(--red);
+      box-shadow: 0 0 20px rgba(196,123,123,0.2);
+    }
 
-    .btn-redo-action { border-color: var(--red); color: var(--red); background: rgba(255, 126, 179, 0.03); }
-    .btn-redo-action:hover { background: var(--red); color: #fff; border-color: var(--red); box-shadow: 0 0 14px rgba(255, 126, 179, 0.3); }
-
-    /* ===== COMMENT PANEL ===== */
+    /* ── COMMENT PANEL ───────────────────────────────────── */
     .collapsible-comment-panel {
       background: var(--surface2);
-      padding: 12px 14px;
-      border-bottom: 1.5px solid var(--border);
-      animation: slideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      padding: 14px 20px;
+      border-top: 1px solid var(--border);
+      animation: slideDown 0.22s cubic-bezier(0.16,1,0.3,1) forwards;
     }
-
     @keyframes slideDown {
       from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    .comment-input-row { display: flex; gap: 10px; align-items: flex-start; width: 100%; }
-
+    .comment-input-row { display: flex; gap: 12px; align-items: flex-start; width: 100%; }
     .comment-avatar-mini {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       overflow: hidden;
-      border: 1.5px solid var(--border2);
+      border: 1px solid var(--border2);
       flex-shrink: 0;
-      background: linear-gradient(135deg, #ff6bbd, #ffb347);
+      background: var(--surface3);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Pacifico', cursive;
-      font-size: 10px;
-      color: #fff;
+      font-family: var(--display);
+      font-size: 9px;
+      font-style: italic;
+      color: var(--gold);
     }
-
-    .comment-bubble-wrapper { flex: 1; display: flex; flex-direction: column; gap: 6px; }
-
+    .comment-bubble-wrapper { flex: 1; display: flex; flex-direction: column; gap: 8px; }
     .comment-bubble-textarea {
       width: 100%;
       background: var(--surface3);
-      border: 1.5px solid var(--border2);
-      color: #fff;
+      border: 1px solid var(--border2);
+      color: var(--text);
       padding: 10px 14px;
       font-family: var(--sans);
       font-size: 13px;
-      font-weight: 500;
-      border-radius: 14px;
+      font-weight: 400;
+      border-radius: var(--radius-sm);
       resize: none;
-      min-height: 48px;
+      min-height: 52px;
       transition: all 0.2s ease;
     }
-
-    .comment-bubble-textarea:focus { outline: none; border-color: var(--signal); }
-
+    .comment-bubble-textarea:focus { outline: none; border-color: var(--gold); }
     .comment-submit-btn {
       align-self: flex-end;
-      background: linear-gradient(135deg, #ff6bbd, #e050a0);
-      color: #fff;
-      border: none;
-      padding: 6px 16px;
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 7px 18px;
       font-family: var(--sans);
-      font-size: 11px;
-      font-weight: 800;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
       border-radius: 20px;
       cursor: pointer;
       transition: all 0.2s ease;
-      box-shadow: 0 2px 8px rgba(255, 107, 189, 0.3);
     }
+    .comment-submit-btn:hover { background: var(--gold-dim); color: var(--gold-light); }
 
-    .comment-submit-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(255, 107, 189, 0.4); }
-
-    /* ===== SKELETON ===== */
+    /* ── SKELETON ────────────────────────────────────────── */
     .skeleton-card {
-      height: 320px;
+      height: 280px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      padding: 18px;
+      gap: 14px;
+      padding: 20px;
       background: var(--surface);
-      border: 1.5px solid var(--border);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
     }
-
     .skeleton {
       background: linear-gradient(90deg, var(--surface2) 25%, var(--surface3) 50%, var(--surface2) 75%);
       background-size: 200% 100%;
-      animation: skeleton-loading 1.5s infinite;
-      border-radius: 8px;
+      animation: skel-load 1.6s infinite ease-in-out;
+      border-radius: 6px;
     }
-
-    @keyframes skeleton-loading {
+    @keyframes skel-load {
       0% { background-position: 200% 0; }
       100% { background-position: -200% 0; }
     }
-
     .skeleton-avatar { width: 44px; height: 44px; border-radius: 50%; }
-    .skeleton-line { height: 12px; }
+    .skeleton-line { height: 11px; }
 
-    /* ===== SYNC SETTINGS ===== */
-    .settings-grid { display: flex; flex-direction: column; gap: 14px; text-align: left; }
-
+    /* ── SYNC / SETTINGS ─────────────────────────────────── */
     .settings-input-group { display: flex; flex-direction: column; gap: 6px; }
-
     .settings-input {
       background: var(--surface2);
-      border: 1.5px solid var(--border2);
-      color: #fff;
+      border: 1px solid var(--border2);
+      color: var(--text);
       padding: 10px 14px;
       font-family: var(--mono);
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 400;
       width: 100%;
-      border-radius: 10px;
+      border-radius: var(--radius-sm);
       transition: border-color 0.2s ease;
     }
+    .settings-input:focus { outline: none; border-color: var(--gold); }
 
-    .settings-input:focus { outline: none; border-color: var(--signal); }
-
-    /* ===== TOASTS ===== */
+    /* ── TOASTS ──────────────────────────────────────────── */
     #toast-container {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 24px;
+      right: 24px;
       z-index: 10001;
       display: flex;
       flex-direction: column;
       gap: 8px;
       pointer-events: none;
     }
-
     .toast {
-      background: var(--surface3);
-      border: 1.5px solid var(--border2);
-      border-left: 4px solid var(--signal);
-      color: #fff;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-left: 3px solid var(--gold);
+      color: var(--text);
       padding: 12px 16px;
-      box-shadow: var(--panel-shadow);
+      box-shadow: var(--shadow-lg);
       display: flex;
       align-items: center;
       gap: 10px;
       transform: translateX(130%);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.35s ease;
       pointer-events: auto;
-      max-width: 300px;
-      border-radius: 12px;
+      max-width: 280px;
+      border-radius: var(--radius-sm);
     }
-
     .toast.toast-error { border-left-color: var(--red); }
-    .toast.toast-info { border-left-color: var(--blue); }
+    .toast.toast-info  { border-left-color: var(--blue); }
     .toast.show { transform: translateX(0); }
-    .toast-msg { font-size: 12px; font-weight: 600; }
+    .toast-msg { font-size: 12px; font-weight: 500; line-height: 1.4; }
 
-    /* ===== EMPTY STATE ===== */
+    /* ── EMPTY STATE ─────────────────────────────────────── */
     .empty-state {
       background: var(--surface);
-      border: 1.5px solid var(--border);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 36px 24px;
+      padding: 48px 24px;
       text-align: center;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       gap: 14px;
-      box-shadow: var(--panel-shadow);
+      box-shadow: var(--shadow-sm);
       width: 100%;
     }
-
-    .empty-icon { color: var(--text-dimmer); animation: pulse 3s infinite ease-in-out; }
-
+    .empty-icon { color: var(--text-dimmer); animation: idle-pulse 4s infinite ease-in-out; }
     .empty-title {
       font-family: var(--display);
-      font-size: 20px;
-      color: #fff;
+      font-size: 24px;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--text);
     }
+    .empty-subtitle { font-size: 12px; font-weight: 400; color: var(--text-dim); max-width: 320px; line-height: 1.7; }
 
-    .empty-subtitle { font-size: 12px; font-weight: 600; color: var(--text-dim); max-width: 340px; }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 0.3; transform: scale(0.96); }
-      50% { opacity: 0.8; transform: scale(1.04); }
+    @keyframes idle-pulse {
+      0%, 100% { opacity: 0.25; transform: scale(0.97); }
+      50%       { opacity: 0.6;  transform: scale(1.03); }
     }
-
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ===== VIEW CHOOSER ===== */
+    /* ── VIEW CHOOSER ────────────────────────────────────── */
     #view-chooser {
       position: fixed;
       inset: 0;
-      background: rgba(13, 8, 32, 0.97);
-      backdrop-filter: blur(14px);
+      background: rgba(12,11,9,0.96);
+      backdrop-filter: blur(18px);
       z-index: 9999;
       display: none;
       justify-content: center;
@@ -948,119 +902,122 @@
       gap: 14px;
       padding: 28px;
     }
-
     #view-chooser.visible {
       display: flex;
-      animation: fadeInUp 0.4s ease both;
+      animation: fadeUp 0.4s ease both;
     }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(14px); }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .chooser-heading {
-      font-size: 11px;
-      font-weight: 800;
-      color: var(--text-dimmer);
+    .chooser-eyebrow {
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--gold);
       text-transform: uppercase;
-      letter-spacing: 2.5px;
+      letter-spacing: 4px;
       margin-bottom: 4px;
     }
-
     .chooser-title {
       font-family: var(--display);
-      font-size: clamp(22px, 5vw, 30px);
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 300;
+      font-style: italic;
       color: var(--text);
       text-align: center;
-      margin-bottom: 28px;
+      margin-bottom: 32px;
+      line-height: 1.2;
     }
-
+    .chooser-divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto -16px;
+    }
     .chooser-grid {
       display: flex;
       gap: 16px;
       width: 100%;
-      max-width: 700px;
+      max-width: 660px;
       flex-wrap: wrap;
       justify-content: center;
     }
-
     .chooser-card {
       flex: 1 1 260px;
-      max-width: 320px;
+      max-width: 310px;
       background: var(--surface);
-      border: 1.5px solid var(--border2);
-      padding: 28px 22px;
+      border: 1px solid var(--border2);
+      padding: 32px 26px;
       cursor: pointer;
-      border-radius: 20px;
+      border-radius: var(--radius);
       transition: border-color 0.2s, background 0.2s, transform 0.15s, box-shadow 0.2s;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
       position: relative;
       overflow: hidden;
     }
-
     .chooser-card::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #ff6bbd, #ffb347);
-      opacity: 0;
-      transition: opacity 0.2s;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border2), transparent);
+      transition: background 0.2s;
     }
-
-    .chooser-card:hover { border-color: var(--signal); background: var(--surface2); transform: translateY(-3px); box-shadow: 0 8px 28px rgba(255, 107, 189, 0.15); }
-    .chooser-card:hover::before { opacity: 1; }
+    .chooser-card:hover {
+      border-color: var(--gold);
+      background: var(--surface2);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg), var(--gold-shadow);
+    }
+    .chooser-card:hover::before { background: linear-gradient(90deg, transparent, var(--gold), transparent); }
 
     .chooser-icon {
-      width: 44px; height: 44px;
-      background: var(--signal-dim);
-      border: 1.5px solid rgba(255, 107, 189, 0.2);
-      border-radius: 12px;
+      width: 42px; height: 42px;
+      background: var(--gold-dim);
+      border: 1px solid rgba(201,160,99,0.2);
+      border-radius: var(--radius-sm);
       display: flex; align-items: center; justify-content: center;
-      color: var(--signal);
+      color: var(--gold);
     }
-
     .chooser-card-title {
       font-family: var(--display);
-      font-size: 17px;
+      font-size: 20px;
+      font-weight: 400;
+      font-style: italic;
       color: var(--text);
     }
-
     .chooser-card-desc {
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 400;
       color: var(--text-dim);
-      line-height: 1.7;
+      line-height: 1.75;
     }
-
     .chooser-arrow {
       margin-top: auto;
-      color: var(--signal);
+      color: var(--gold);
       opacity: 0;
       transition: opacity 0.2s, transform 0.2s;
       align-self: flex-end;
     }
-
     .chooser-card:hover .chooser-arrow { opacity: 1; transform: translateX(4px); }
 
-    /* ===== PDF CAROUSEL ===== */
+    /* ── PDF ─────────────────────────────────────────────── */
     .pdf-wrap {
       display: flex;
       flex-direction: column;
       width: 100%;
-      background: #0a0617;
-      border-top: 1.5px solid var(--border);
-      border-bottom: 1.5px solid var(--border);
+      background: #090807;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
       overflow: hidden;
     }
-
     .pdf-stage {
       position: relative;
       width: 100%;
-      background: #070414;
+      background: #060504;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1068,7 +1025,6 @@
       user-select: none;
       min-height: 200px;
     }
-
     .pdf-stage canvas {
       display: block;
       width: 100%;
@@ -1076,18 +1032,16 @@
       opacity: 0;
       transition: opacity 0.18s ease;
     }
-
     .pdf-nav-btn {
       position: absolute;
       z-index: 10;
       top: 50%;
       transform: translateY(-50%);
-      width: 44px;
-      height: 44px;
+      width: 40px; height: 40px;
       border-radius: 50%;
-      border: 1.5px solid rgba(255,255,255,0.25);
-      background: rgba(10, 6, 25, 0.82);
-      color: #fff;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(10,9,7,0.8);
+      color: var(--text-dim);
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -1096,20 +1050,16 @@
       backdrop-filter: blur(8px);
       opacity: 0.15;
       pointer-events: none;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.6);
     }
-
-    .pdf-nav-btn:hover { border-color: var(--signal); background: rgba(255,107,189,0.2); box-shadow: 0 0 14px rgba(255,107,189,0.3); }
-
+    .pdf-nav-btn:hover { border-color: var(--gold); color: var(--gold); }
     .pdf-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 12px 16px;
       background: var(--surface2);
-      border-top: 1.5px solid var(--border2);
+      border-top: 1px solid var(--border);
     }
-
     .pdf-file-info {
       display: flex;
       align-items: center;
@@ -1119,35 +1069,45 @@
       text-overflow: ellipsis;
       max-width: 65%;
     }
-
     .pdf-page-badge {
-      font-size: 10px;
-      font-weight: 700;
+      font-size: 9px;
+      font-weight: 600;
       color: var(--text-dim);
       background: var(--surface3);
       padding: 2px 8px;
       border-radius: 20px;
       border: 1px solid var(--border);
       flex-shrink: 0;
+      letter-spacing: 0.5px;
     }
-
     .pdf-open-link {
       display: flex;
       align-items: center;
       gap: 5px;
       font-size: 10px;
-      font-weight: 700;
-      color: var(--signal);
+      font-weight: 600;
+      color: var(--gold);
       text-decoration: none;
-      border: 1.5px solid var(--signal-dim);
+      border: 1px solid rgba(201,160,99,0.25);
       padding: 6px 12px;
       border-radius: 20px;
-      background: var(--signal-dim);
+      background: var(--gold-dim);
       transition: all 0.2s;
       flex-shrink: 0;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
+    .pdf-open-link:hover { background: var(--gold); color: #0c0b09; }
 
-    .pdf-open-link:hover { background: var(--signal); color: #fff; }
+    /* ── SECTION LABEL ───────────────────────────────────── */
+    .section-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--text-dimmer);
+      margin-bottom: 4px;
+    }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
   <script>
@@ -1161,80 +1121,74 @@
   <div id="password-gate">
     <div class="auth-card">
       <div class="auth-logo">
-        <div class="anchie-logo-badge">
-          <div class="anchie-logo-text">Anchie Ama</div>
-          <div class="anchie-logo-sub">Kids Books ✦</div>
-        </div>
+        <div class="auth-wordmark"><span>Anchie</span> Ama</div>
+        <div class="auth-divider"></div>
+        <div class="auth-eyebrow">Content Studio</div>
       </div>
-      <div class="auth-title">Welcome Back!</div>
-      <div class="auth-subtitle">Content Approval Engine — Staff Only</div>
-      <div class="form-group">
-        <label class="form-label" for="security-password">Secret Password</label>
-        <input type="password" id="security-password" class="password-input" maxlength="8" placeholder="••••••••" autocomplete="off" autofocus>
-      </div>
+      <div class="auth-heading">Welcome Back</div>
+      <div class="auth-sub">Staff access only — enter your passkey to continue</div>
+      <label class="form-label" for="security-password">Passkey</label>
+      <input type="password" id="security-password" class="password-input" maxlength="8" placeholder="········" autocomplete="off" autofocus>
       <button onclick="handleLogin()" class="auth-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-        Let Me In!
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        Enter Portal
       </button>
-      <div id="login-error" class="error-msg">Oops! Wrong password. Try again.</div>
+      <div id="login-error" class="error-msg">Incorrect passkey — please try again.</div>
     </div>
   </div>
 
   <!-- VIEW CHOOSER -->
   <div id="view-chooser">
-    <div class="chooser-heading">Anchie Ama Internal Portal</div>
-    <div class="chooser-title">What would you like to do? ✨</div>
-    <div class="chooser-grid">
+    <div class="chooser-eyebrow">Anchie Ama Internal Portal</div>
+    <div class="chooser-title">Where would you like to go?</div>
+    <div class="chooser-divider"></div>
+    <div class="chooser-grid" style="margin-top: 8px;">
       <div class="chooser-card" onclick="switchView('feed')">
         <div class="chooser-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
         </div>
         <div class="chooser-card-title">Content Approval Engine</div>
-        <div class="chooser-card-desc">Review, approve, or request changes on content posts. Manage the editorial pipeline for Anchie Ama.</div>
+        <div class="chooser-card-desc">Review, approve, or request changes on pending content. Manage the editorial pipeline.</div>
         <div class="chooser-arrow">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </div>
       </div>
       <div class="chooser-card" onclick="switchView('approved')">
         <div class="chooser-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
         </div>
         <div class="chooser-card-title">Approved Archive</div>
-        <div class="chooser-card-desc">Browse all approved and queued content — images, videos, carousels, and books.</div>
+        <div class="chooser-card-desc">Browse all approved content — images, videos, carousels, and book previews.</div>
         <div class="chooser-arrow">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- STICKY NAV -->
+  <!-- NAV -->
   <nav>
     <div class="nav-container">
-      <div class="logo-container">
-        <div class="nav-logo-badge">
-          <span class="nav-logo-star">✦</span>
-          <span class="nav-logo-text">Anchie Ama</span>
-          <span class="nav-logo-star">✦</span>
-        </div>
+      <div class="nav-brand">
+        <div class="nav-wordmark">Anchie Ama</div>
+        <div class="nav-tagline">Content Studio</div>
       </div>
-
       <div class="menu-dropdown-container" id="menu-dropdown-container">
         <button class="menu-trigger-btn" onclick="toggleNavMenu(event)">
           <span id="active-menu-label">Review Feed</span>
-          <svg class="dropdown-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          <svg class="dropdown-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </button>
         <div id="nav-dropdown-menu" class="nav-dropdown-menu">
           <div class="dropdown-item active" id="menu-item-feed" onclick="switchView('feed')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
             Review Feed
           </div>
           <div class="dropdown-item" id="menu-item-approved" onclick="switchView('approved')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
             View Approved
           </div>
           <div class="dropdown-item" id="menu-item-sync" onclick="switchView('sync')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
             Sync Settings
           </div>
         </div>
@@ -1246,73 +1200,75 @@
   <div id="view-feed" class="view-panel">
     <div class="feed-grid">
       <div class="feed-header-row">
-        <h1 class="feed-main-title">✦ Anchie Ama Content Approval ✦</h1>
+        <div class="feed-eyebrow">Editorial Pipeline</div>
+        <h1 class="feed-main-title">Content Approval Engine</h1>
         <div class="feed-status-meta">
-          <span id="pending-count">0 Pending Posts</span>
-          <span class="status-dot-separator">•</span>
-          <span id="status-text" style="color: var(--text-dimmer);">LOCKED</span>
+          <span id="pending-count">0 Pending</span>
+          <span class="status-dot-separator">—</span>
+          <span id="status-text" style="color: var(--text-dimmer);">Locked</span>
         </div>
       </div>
       <main class="feed-container" id="feed-container">
         <div class="empty-state">
-          <svg class="empty-icon" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-          <div class="empty-title">Portal Locked 🔒</div>
-          <div class="empty-subtitle">Enter the secret password to unlock your content feed.</div>
+          <svg class="empty-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <div class="empty-title">Portal Locked</div>
+          <div class="empty-subtitle">Enter your passkey to unlock the content feed.</div>
         </div>
       </main>
     </div>
   </div>
 
-  <!-- VIEW 2: SYNC / SETTINGS -->
+  <!-- VIEW 2: SYNC SETTINGS -->
   <div id="view-sync" class="view-panel" style="display: none;">
     <div class="feed-grid">
       <div class="feed-header-row">
-        <h1 class="feed-main-title">Sync Control Center</h1>
+        <div class="feed-eyebrow">Infrastructure</div>
+        <h1 class="feed-main-title">Sync Control Centre</h1>
         <div class="feed-status-meta">
-          <span id="sync-status-indicator" style="color: var(--signal);">CONNECTED</span>
+          <span id="sync-status-indicator" style="color: var(--gold);">Connected</span>
         </div>
       </div>
 
-      <div class="post-card" style="padding: 28px;">
-        <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 18px;">
-          <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--signal-dim); display: flex; justify-content: center; align-items: center; color: var(--signal); border: 2px dashed var(--signal); font-size: 24px;">
-            🔄
+      <div class="post-card" style="padding: 32px;">
+        <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px;">
+          <div style="width:56px;height:56px;border-radius:50%;background:var(--gold-dim);display:flex;justify-content:center;align-items:center;color:var(--gold);border:1px solid rgba(201,160,99,0.25);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
           </div>
           <div>
-            <h3 style="font-family: var(--display); font-size: 18px; color: #fff; margin-bottom: 6px;">Data Synchronisation</h3>
-            <p style="font-size: 13px; font-weight: 600; color: var(--text-dim); max-width: 440px; line-height: 1.6;">Fetch the latest pending, approved, and rejected content posts live from n8n automations.</p>
+            <div style="font-family:var(--display);font-style:italic;font-size:20px;color:var(--text);margin-bottom:8px;font-weight:400;">Data Synchronisation</div>
+            <p style="font-size:12px;font-weight:400;color:var(--text-dim);max-width:400px;line-height:1.75;">Fetch the latest pending, approved, and rejected content posts live from n8n automations.</p>
           </div>
-          <button onclick="triggerSheetSync()" class="auth-btn" style="max-width: 260px; margin-top: 4px;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+          <button onclick="triggerSheetSync()" class="auth-btn" style="max-width:220px;margin-top:4px;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
             Trigger Sync
           </button>
         </div>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%;">
-        <div class="post-card" style="padding: 16px; text-align: center; border-radius: var(--radius);">
-          <div style="font-size: 9px; font-weight: 800; color: var(--text-dimmer); text-transform: uppercase; margin-bottom: 6px; letter-spacing: 1px;">Status</div>
-          <div id="sync-tel-status" style="font-family: var(--display); font-size: 16px; color: var(--signal);">READY</div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;width:100%;">
+        <div class="post-card" style="padding:18px;text-align:center;">
+          <div class="section-label" style="margin-bottom:8px;">Status</div>
+          <div id="sync-tel-status" style="font-family:var(--display);font-style:italic;font-size:18px;color:var(--gold);font-weight:400;">Ready</div>
         </div>
-        <div class="post-card" style="padding: 16px; text-align: center; border-radius: var(--radius);">
-          <div style="font-size: 9px; font-weight: 800; color: var(--text-dimmer); text-transform: uppercase; margin-bottom: 6px; letter-spacing: 1px;">Last Synced</div>
-          <div id="sync-tel-time" style="font-size: 13px; font-weight: 700; color: var(--text-dim);">NEVER</div>
-        </div>
-      </div>
-
-      <div class="post-card" style="padding: 16px; border-radius: var(--radius);">
-        <div style="font-size: 9px; font-weight: 800; color: var(--text-dimmer); text-transform: uppercase; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; letter-spacing: 1px;">
-          <span>Console Logs</span>
-          <span style="color: var(--signal); font-size: 8px; border: 1px solid var(--signal-dim); padding: 2px 6px; border-radius: 20px;">LIVE</span>
-        </div>
-        <div id="console-logs" style="font-size: 11px; font-weight: 600; color: var(--text-dim); background: #070414; border: 1.5px solid var(--border); padding: 12px; border-radius: 10px; min-height: 110px; max-height: 150px; overflow-y: auto; text-align: left; line-height: 1.7; font-family: monospace;">
-          <div style="color: var(--text-dimmer);">[SYSTEM] Waiting for authentication...</div>
+        <div class="post-card" style="padding:18px;text-align:center;">
+          <div class="section-label" style="margin-bottom:8px;">Last Synced</div>
+          <div id="sync-tel-time" style="font-size:13px;font-weight:400;color:var(--text-dim);">Never</div>
         </div>
       </div>
 
-      <div class="post-card" style="padding: 20px; border-radius: var(--radius);">
-        <div style="font-size: 9px; font-weight: 800; color: var(--text-dimmer); text-transform: uppercase; margin-bottom: 16px; letter-spacing: 1px;">API Webhook Endpoints</div>
-        <div class="settings-grid">
+      <div class="post-card" style="padding:18px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <div class="section-label">Console Logs</div>
+          <span style="color:var(--gold);font-size:8px;font-weight:700;border:1px solid rgba(201,160,99,0.25);padding:2px 8px;border-radius:20px;letter-spacing:2px;text-transform:uppercase;">Live</span>
+        </div>
+        <div id="console-logs" style="font-size:11px;font-weight:400;color:var(--text-dim);background:var(--bg);border:1px solid var(--border);padding:12px;border-radius:var(--radius-sm);min-height:110px;max-height:150px;overflow-y:auto;text-align:left;line-height:1.8;font-family:var(--mono);">
+          <div style="color:var(--text-dimmer);">[SYSTEM] Waiting for authentication...</div>
+        </div>
+      </div>
+
+      <div class="post-card" style="padding:20px;">
+        <div class="section-label" style="margin-bottom:18px;">API Webhook Endpoints</div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
           <div class="settings-input-group">
             <label class="form-label">Data Fetch Webhook (GET)</label>
             <input type="text" id="webhook-get-url" class="settings-input" value="https://n8n.srv846064.hstgr.cloud/webhook/anchieama_get_data" onchange="saveSyncSettings()">
@@ -1342,16 +1298,17 @@
   <div id="view-approved" class="view-panel" style="display: none;">
     <div class="feed-grid">
       <div class="feed-header-row">
-        <h1 class="feed-main-title">Approved Posts Archive ✦</h1>
+        <div class="feed-eyebrow">Read Only</div>
+        <h1 class="feed-main-title">Approved Archive</h1>
         <div class="feed-status-meta">
           <span id="approved-count">0 Approved Posts</span>
-          <span class="status-dot-separator">•</span>
-          <span style="color: var(--green);">READ ONLY</span>
+          <span class="status-dot-separator">—</span>
+          <span style="color: var(--green);">Published</span>
         </div>
       </div>
       <main class="feed-container" id="approved-feed-container">
         <div class="empty-state">
-          <svg class="empty-icon" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline></svg>
+          <svg class="empty-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline></svg>
           <div class="empty-title">Archive Empty</div>
           <div class="empty-subtitle">Loading approved posts...</div>
         </div>
@@ -1470,7 +1427,7 @@
         setTimeout(() => {
           document.getElementById('view-chooser').classList.add('visible');
         }, 350);
-        showToast('Welcome! Select a view ✨', 'success');
+        showToast('Welcome — select a view to continue', 'success');
       } else {
         errorMsg.classList.add('visible');
         input.value = '';
@@ -1493,7 +1450,7 @@
         if (val) { CONFIG[cfgKey] = val; localStorage.setItem(lsKey, val); }
       });
       addLogEntry('Webhook endpoints saved.');
-      showToast('API endpoints updated!', 'info');
+      showToast('API endpoints updated', 'info');
     }
 
     function extractPostsArray(data) {
@@ -1513,7 +1470,7 @@
     function triggerSheetSync() { addLogEntry('Manual sync triggered.'); fetchPosts(); }
 
     async function fetchPosts() {
-      updateStatus('SYNCING', '#ffb347');
+      updateStatus('Syncing', 'var(--amber)');
       showFeedSkeleton();
       addLogEntry('Fetching pending posts...');
       try {
@@ -1523,26 +1480,26 @@
         postsData = extractPostsArray(data);
         postsData.forEach(p => { if (!p.Approval) p.Approval = 'Pending'; });
         renderFeed();
-        updateStatus('CONNECTED', 'var(--signal)');
-        document.getElementById('sync-tel-status').innerText = 'SUCCESS';
+        updateStatus('Connected', 'var(--signal)');
+        document.getElementById('sync-tel-status').innerText = 'Success';
         document.getElementById('sync-tel-status').style.color = 'var(--green)';
         document.getElementById('sync-tel-time').innerText = new Date().toLocaleTimeString();
         addLogEntry(`Synced ${postsData.length} posts successfully.`);
-        showToast(`Pulled ${postsData.length} pending posts ✨`, 'success');
+        showToast(`${postsData.length} pending posts loaded`, 'success');
       } catch (err) {
         postsData = JSON.parse(JSON.stringify(MOCK_DATA));
         renderFeed();
-        updateStatus('CONNECTED', 'var(--signal)');
-        document.getElementById('sync-tel-status').innerText = 'ERROR';
+        updateStatus('Connected', 'var(--signal)');
+        document.getElementById('sync-tel-status').innerText = 'Error';
         document.getElementById('sync-tel-status').style.color = 'var(--red)';
         document.getElementById('sync-tel-time').innerText = new Date().toLocaleTimeString();
         addLogEntry(`<span style="color:var(--red);">Sync failed: ${err.message}</span>`);
-        showToast('Webhook offline. Feed loaded.', 'info');
+        showToast('Webhook offline — feed loaded', 'info');
       }
     }
 
     async function fetchApprovedPosts() {
-      updateStatus('SYNCING', '#ffb347');
+      updateStatus('Syncing', 'var(--amber)');
       showApprovedFeedSkeleton();
       addLogEntry('Fetching approved posts archive...');
       try {
@@ -1552,19 +1509,19 @@
         approvedPostsData = extractPostsArray(data);
         approvedPostsData.sort((a, b) => (parseInt(b.row_number)||0) - (parseInt(a.row_number)||0));
         renderApprovedFeed();
-        updateStatus('CONNECTED', 'var(--signal)');
+        updateStatus('Connected', 'var(--signal)');
         addLogEntry(`Synced ${approvedPostsData.length} approved posts.`);
-        showToast(`Pulled ${approvedPostsData.length} approved posts ✨`, 'success');
+        showToast(`${approvedPostsData.length} approved posts loaded`, 'success');
       } catch (err) {
         approvedPostsData = [];
         renderApprovedFeed();
-        updateStatus('CONNECTED', 'var(--signal)');
+        updateStatus('Connected', 'var(--signal)');
         addLogEntry(`<span style="color:var(--red);">Sync failed: ${err.message}</span>`);
-        showToast('Failed to load archive.', 'toast-error');
+        showToast('Failed to load archive', 'toast-error');
       }
     }
 
-    /* ===== MEDIA TYPE DETECTION ===== */
+    /* ── MEDIA TYPE DETECTION ── */
     function isPdfUrl(url) {
       try {
         const u = new URL(url);
@@ -1597,14 +1554,12 @@
       return m ? `https://player.vimeo.com/video/${m[1]}` : null;
     }
 
-    /* ===== PDF CAROUSEL ===== */
+    /* ── PDF CAROUSEL ── */
     const pdfDocs = {};
 
     function getDirectPdfUrl(url) {
-      // Convert Google Drive /view URL to /preview embed URL (clean, no Drive chrome)
       const gdMatch = url.match(/drive\.google\.com\/file\/d\/([^/?#]+)/);
       if (gdMatch) return { embedUrl: `https://drive.google.com/file/d/${gdMatch[1]}/preview`, isGDrive: true };
-      // Convert Google Drive /open?id= format
       const gdMatch2 = url.match(/drive\.google\.com\/open\?id=([^&]+)/);
       if (gdMatch2) return { embedUrl: `https://drive.google.com/file/d/${gdMatch2[1]}/preview`, isGDrive: true };
       return { embedUrl: url, isGDrive: false };
@@ -1652,14 +1607,10 @@
       };
 
       let pdf = null;
-
-      // Try 1: direct (works for same-origin or permissive CORS)
       pdf = await tryLoad(async () => {
         const task = pdfjsLib.getDocument({ url, withCredentials: false });
         return await task.promise;
       });
-
-      // Try 2: corsproxy.io
       if (!pdf) {
         pdf = await tryLoad(async () => {
           const r = await fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`);
@@ -1668,8 +1619,6 @@
           return await pdfjsLib.getDocument({ data: new Uint8Array(buf) }).promise;
         });
       }
-
-      // Try 3: allorigins
       if (!pdf) {
         pdf = await tryLoad(async () => {
           const r = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
@@ -1680,12 +1629,7 @@
       }
 
       if (loader) loader.style.display = 'none';
-
-      if (!pdf) {
-        // Canvas failed — fall back to clean iframe embed
-        useIframeEmbed(rowNumber, url, isApproved);
-        return;
-      }
+      if (!pdf) { useIframeEmbed(rowNumber, url, isApproved); return; }
 
       pdfDocs[key].doc = pdf;
       pdfDocs[key].totalPages = pdf.numPages;
@@ -1705,14 +1649,10 @@
         const nextBtn = document.getElementById(`${prefix}pdf-next-${rowNumber}`);
         const pageInd = document.getElementById(`${prefix}pdf-page-indicator-${rowNumber}`);
         if (!canvas) return;
-
-        // Fade out before rendering new page
         canvas.style.opacity = '0';
         canvas.style.transition = 'opacity 0.18s ease';
-
         const page = await state.doc.getPage(pageNum);
         const ctx = canvas.getContext('2d');
-        // Scale to fit card width (max ~560px) while keeping aspect ratio
         const stage = canvas.parentElement;
         const stageW = stage ? Math.min(stage.offsetWidth || 560, 560) : 560;
         const baseViewport = page.getViewport({ scale: 1 });
@@ -1721,10 +1661,7 @@
         canvas.width = viewport.width;
         canvas.height = viewport.height;
         await page.render({ canvasContext: ctx, viewport }).promise;
-
-        // Fade back in
         canvas.style.opacity = '1';
-
         if (pageInd) pageInd.innerText = `${pageNum} / ${state.totalPages}`;
         if (prevBtn) {
           prevBtn.style.opacity = pageNum > 1 ? '1' : '0.15';
@@ -1750,7 +1687,7 @@
       if (newPage >= 1 && newPage <= state.totalPages) renderPdfPage(rowNumber, newPage, isApproved);
     }
 
-    /* ===== MEDIA BOX BUILDER ===== */
+    /* ── MEDIA BOX BUILDER ── */
     function buildMediaBox(post, isApproved = false) {
       if (!post['Media Link'] || post['Media Link'].trim() === '') return '';
       const mediaUrl = post['Media Link'].trim();
@@ -1766,36 +1703,35 @@
         return `
           <div class="pdf-wrap">
             <div style="width:100%;height:520px;overflow:hidden;position:relative;">
-              <iframe src="${mediaUrl}#toolbar=0&navpanes=0&scrollbar=1" style="width:100%;height:100%;border:none;display:block;background:#0e0b18;" allow="autoplay"></iframe>
+              <iframe src="${mediaUrl}#toolbar=0&navpanes=0&scrollbar=1" style="width:100%;height:100%;border:none;display:block;background:#090807;" allow="autoplay"></iframe>
             </div>
             <div class="pdf-footer">
               <div class="pdf-file-info">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" style="flex-shrink:0;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-                <span style="font-size:12px;font-weight:700;color:var(--text);overflow:hidden;text-overflow:ellipsis;">${fileName}</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.75" style="flex-shrink:0;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                <span style="font-size:11px;font-weight:500;color:var(--text);overflow:hidden;text-overflow:ellipsis;">${fileName}</span>
                 <span class="pdf-page-badge">Scroll ↕</span>
               </div>
               <a href="${mediaUrl}" target="_blank" class="pdf-open-link">
                 Open PDF
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
               </a>
             </div>
           </div>`;
       }
 
-      // Canva link — show preview card instead of embedding
       if (mediaUrl.includes('canva.com')) {
         return `
-          <div style="width:100%;border-top:1.5px solid var(--border);border-bottom:1.5px solid var(--border);background:#08051a;display:flex;justify-content:center;align-items:center;padding:32px 20px;">
-            <div style="display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;max-width:300px;">
-              <div style="width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#7d2ae8,#c850c0);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(125,42,232,0.4);">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+          <div style="width:100%;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:#0a0907;display:flex;justify-content:center;align-items:center;padding:40px 20px;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;max-width:280px;">
+              <div style="width:60px;height:60px;border-radius:14px;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.75"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
               </div>
               <div>
-                <div style="font-family:var(--display);font-size:16px;color:#fff;margin-bottom:4px;">Video Content</div>
-                <div style="font-size:12px;font-weight:600;color:var(--text-dim);line-height:1.5;">This video is hosted on Canva.<br>Click below to view it.</div>
+                <div style="font-family:var(--display);font-style:italic;font-size:18px;color:var(--text);margin-bottom:6px;font-weight:400;">Video Content</div>
+                <div style="font-size:12px;font-weight:400;color:var(--text-dim);line-height:1.7;">This video is hosted on Canva.<br>Click below to preview it.</div>
               </div>
-              <a href="${mediaUrl}" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#7d2ae8,#c850c0);color:#fff;font-family:var(--sans);font-size:13px;font-weight:800;padding:12px 24px;border-radius:24px;text-decoration:none;box-shadow:0 4px 16px rgba(125,42,232,0.4);transition:all 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(125,42,232,0.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 16px rgba(125,42,232,0.4)'">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+              <a href="${mediaUrl}" target="_blank" class="pdf-open-link" style="border-radius:var(--radius-sm);padding:10px 24px;font-size:11px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
                 View in Canva
               </a>
             </div>
@@ -1812,9 +1748,9 @@
           const embedUrl = getVimeoEmbedUrl(mediaUrl);
           if (embedUrl) embedHtml = `<iframe src="${embedUrl}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
         } else {
-          embedHtml = `<video controls playsinline style="position:absolute;inset:0;width:100%;height:100%;border-radius:12px;background:#000;object-fit:contain;" src="${mediaUrl}"></video>`;
+          embedHtml = `<video controls playsinline style="position:absolute;inset:0;width:100%;height:100%;border-radius:10px;background:#000;object-fit:contain;" src="${mediaUrl}"></video>`;
         }
-        if (!embedHtml) embedHtml = `<video controls playsinline style="position:absolute;inset:0;width:100%;height:100%;border-radius:12px;background:#000;" src="${mediaUrl}"></video>`;
+        if (!embedHtml) embedHtml = `<video controls playsinline style="position:absolute;inset:0;width:100%;height:100%;border-radius:10px;background:#000;" src="${mediaUrl}"></video>`;
         return `
           <div class="video-media-box">
             <div class="video-player-wrap">
@@ -1822,22 +1758,21 @@
               <div class="video-open-link">
                 <a href="${mediaUrl}" target="_blank" class="pdf-open-link">
                   Open Video
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                 </a>
               </div>
             </div>
           </div>`;
       }
 
-      // Default: image
       const errFn = isApproved ? `handleApprovedImageError(${rowNum})` : `handleImageError(${rowNum})`;
       return `
         <div class="post-media-box">
           <img class="post-media-image" id="${prefix}media-img-${rowNum}" src="${mediaUrl}" alt="Content Visual" onerror="${errFn}">
           <div id="${prefix}media-fallback-${rowNum}" class="media-fallback" style="display:none;">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path></svg>
-            <div class="media-fallback-text">Unable to load image. Check the link.</div>
-            <a href="${mediaUrl}" target="_blank" style="padding:6px 14px;font-size:11px;font-weight:700;color:var(--signal);border:1.5px solid var(--signal-dim);border-radius:20px;text-decoration:none;background:var(--signal-dim);">Open in New Tab</a>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path></svg>
+            <div class="media-fallback-text">Unable to load image — check the link.</div>
+            <a href="${mediaUrl}" target="_blank" class="pdf-open-link">Open in New Tab</a>
           </div>
         </div>`;
     }
@@ -1846,37 +1781,37 @@
       const prefix = isApproved ? 'approved-' : '';
       if (!fullText) return '';
       if (fullText.length > 180) {
-        return `<span class="post-text-visible">${fullText.slice(0,180)}</span><span id="${prefix}text-hidden-${rowNumber}" style="display:none;">${fullText.slice(180)}</span><span id="${prefix}see-more-${rowNumber}" class="see-more-link" onclick="${isApproved ? 'expandApproved' : 'expand'}PostText(${rowNumber})">... see more</span><span id="${prefix}see-less-${rowNumber}" class="see-less-link" style="display:none;" onclick="${isApproved ? 'collapseApproved' : 'collapse'}PostText(${rowNumber})">... see less</span>`;
+        return `<span class="post-text-visible">${fullText.slice(0,180)}</span><span id="${prefix}text-hidden-${rowNumber}" style="display:none;">${fullText.slice(180)}</span><span id="${prefix}see-more-${rowNumber}" class="see-more-link" onclick="${isApproved ? 'expandApproved' : 'expand'}PostText(${rowNumber})">… read more</span><span id="${prefix}see-less-${rowNumber}" class="see-less-link" style="display:none;" onclick="${isApproved ? 'collapseApproved' : 'collapse'}PostText(${rowNumber})">… read less</span>`;
       }
       return `<span class="post-text-visible">${fullText}</span>`;
     }
 
-    /* ===== RENDER FUNCTIONS ===== */
+    /* ── RENDER FUNCTIONS ── */
     function showFeedSkeleton() {
       document.getElementById('feed-container').innerHTML = `
         <div class="skeleton-card">
-          <div style="display:flex;gap:12px;align-items:center;">
+          <div style="display:flex;gap:14px;align-items:center;">
             <div class="skeleton skeleton-avatar"></div>
             <div style="display:flex;flex-direction:column;gap:8px;flex:1;">
-              <div class="skeleton skeleton-line" style="width:42%"></div>
-              <div class="skeleton skeleton-line" style="width:28%"></div>
+              <div class="skeleton skeleton-line" style="width:38%"></div>
+              <div class="skeleton skeleton-line" style="width:24%"></div>
             </div>
           </div>
-          <div class="skeleton skeleton-line" style="width:100%;height:90px;margin-top:14px;"></div>
+          <div class="skeleton skeleton-line" style="width:100%;height:80px;margin-top:16px;"></div>
         </div>`;
     }
 
     function showApprovedFeedSkeleton() {
       document.getElementById('approved-feed-container').innerHTML = `
         <div class="skeleton-card">
-          <div style="display:flex;gap:12px;align-items:center;">
+          <div style="display:flex;gap:14px;align-items:center;">
             <div class="skeleton skeleton-avatar"></div>
             <div style="display:flex;flex-direction:column;gap:8px;flex:1;">
-              <div class="skeleton skeleton-line" style="width:42%"></div>
-              <div class="skeleton skeleton-line" style="width:28%"></div>
+              <div class="skeleton skeleton-line" style="width:38%"></div>
+              <div class="skeleton skeleton-line" style="width:24%"></div>
             </div>
           </div>
-          <div class="skeleton skeleton-line" style="width:100%;height:90px;margin-top:14px;"></div>
+          <div class="skeleton skeleton-line" style="width:100%;height:80px;margin-top:16px;"></div>
         </div>`;
     }
 
@@ -1892,13 +1827,13 @@
       container.innerHTML = '';
       const pending = postsData.filter(p => p.Approval === 'Pending');
       const el = document.getElementById('pending-count');
-      if (el) el.innerText = `${pending.length} Pending Posts`;
+      if (el) el.innerText = `${pending.length} Pending`;
       if (postsData.length === 0 || pending.length === 0) {
         container.innerHTML = `
           <div class="empty-state">
-            <div style="font-size: 48px; animation: pulse 3s infinite ease-in-out;">📚</div>
-            <div class="empty-title">All Clear! ✨</div>
-            <div class="empty-subtitle">No pending posts right now. Check back later or ask the content team to add more!</div>
+            <svg class="empty-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            <div class="empty-title">All Clear</div>
+            <div class="empty-subtitle">No pending posts right now. Check back later or ask the content team to queue more.</div>
           </div>`;
         return;
       }
@@ -1919,7 +1854,7 @@
       if (approvedPostsData.length === 0) {
         container.innerHTML = `
           <div class="empty-state">
-            <div style="font-size: 48px; animation: pulse 3s infinite ease-in-out;">📖</div>
+            <svg class="empty-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
             <div class="empty-title">Archive Empty</div>
             <div class="empty-subtitle">No approved posts yet. Approve pending posts to see them here.</div>
           </div>`;
@@ -1941,10 +1876,10 @@
       card.className = `post-card ${statusClass}`;
       card.id = `post-card-${post.row_number}`;
 
-      let statusBadge = `<span class="badge-status status-pending">PENDING APPROVAL</span>`;
-      if (post.Approval === 'Approved') statusBadge = `<span class="badge-status status-approved">APPROVED ✦</span>`;
-      if (post.Approval === 'Rejected') statusBadge = `<span class="badge-status status-rejected">CHANGES NEEDED</span>`;
-      if (post.Approval === 'Redo Requested') statusBadge = `<span class="badge-status status-redo">REDO REQUESTED</span>`;
+      let statusBadge = `<span class="badge-status status-pending">Pending</span>`;
+      if (post.Approval === 'Approved') statusBadge = `<span class="badge-status status-approved">Approved</span>`;
+      if (post.Approval === 'Rejected') statusBadge = `<span class="badge-status status-rejected">Changes Needed</span>`;
+      if (post.Approval === 'Redo Requested') statusBadge = `<span class="badge-status status-redo">Redo Requested</span>`;
 
       card.innerHTML = `
         <div class="post-card-header">
@@ -1953,10 +1888,10 @@
             <div class="post-author-info">
               <div class="post-author-name">
                 Anchie Ama
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--signal)" style="margin-left:2px;"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="var(--gold)" style="margin-left:2px;opacity:0.8;"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
               </div>
-              <div class="post-author-meta">Topic: ${post['Content Topic'] || '—'}</div>
-              <div class="post-author-meta">Type: ${post['Content Type'] || 'Post'}</div>
+              <div class="post-author-meta">Topic — ${post['Content Topic'] || '—'}</div>
+              <div class="post-author-meta">Type — ${post['Content Type'] || 'Post'}</div>
             </div>
           </div>
           <div class="badge-container">${statusBadge}</div>
@@ -1966,7 +1901,7 @@
           <div class="post-content-text" id="content-text-${post.row_number}" contenteditable="false">${buildContentHtml(post['Post Content'], post.row_number, false)}</div>
           <div class="post-content-actions">
             <button onclick="toggleEditMode(${post.row_number})" id="edit-btn-${post.row_number}" class="btn-edit-text-trigger">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4z"></path></svg>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4z"></path></svg>
               <span>Edit Caption</span>
             </button>
           </div>
@@ -1976,15 +1911,15 @@
 
         <div class="post-action-buttons">
           <button onclick="submitStatus(${post.row_number}, 'Approved')" class="action-btn-li btn-approve-action">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-            Approve Post
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            Approve
           </button>
           <button onclick="toggleCommentBox(${post.row_number})" class="action-btn-li btn-text-action" id="changes-action-${post.row_number}">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
             Request Changes
           </button>
           <button onclick="submitStatus(${post.row_number}, 'Redo Requested')" class="action-btn-li btn-redo-action">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
             Redo Post
           </button>
         </div>
@@ -2014,16 +1949,16 @@
             <div class="post-author-info">
               <div class="post-author-name">
                 Anchie Ama
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--signal)" style="margin-left:2px;"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="var(--gold)" style="margin-left:2px;opacity:0.8;"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
               </div>
-              <div class="post-author-meta">Topic: ${post['Content Topic'] || post['Topic'] || '—'}</div>
-              <div class="post-author-meta">Type: ${post['Content Type'] || 'Post'}</div>
+              <div class="post-author-meta">Topic — ${post['Content Topic'] || post['Topic'] || '—'}</div>
+              <div class="post-author-meta">Type — ${post['Content Type'] || 'Post'}</div>
             </div>
           </div>
-          <div class="badge-container"><span class="badge-status status-approved">APPROVED ✦</span></div>
+          <div class="badge-container"><span class="badge-status status-approved">Approved</span></div>
         </div>
 
-        <div class="post-content-wrapper" style="padding-bottom:14px;">
+        <div class="post-content-wrapper" style="padding-bottom:16px;">
           <div class="post-content-text" id="approved-content-text-${post.row_number}" contenteditable="false">${buildContentHtml(post['Post Content'] || '', post.row_number, true)}</div>
         </div>
 
@@ -2032,7 +1967,7 @@
       container.appendChild(card);
     }
 
-    /* ===== TEXT EDIT / EXPAND ===== */
+    /* ── TEXT EDIT / EXPAND ── */
     function updatePostText(rowNumber, text) {
       const idx = postsData.findIndex(p => p.row_number === rowNumber);
       if (idx !== -1) { postsData[idx]['Post Content'] = text; addLogEntry(`Caption edited on post #${rowNumber}.`); }
@@ -2057,9 +1992,9 @@
         range.collapse(false);
         sel.removeAllRanges();
         sel.addRange(range);
-        btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Save Caption</span>`;
+        btn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Save Caption</span>`;
         btn.classList.add('editing-btn-active');
-        showToast('Caption editing enabled ✏️', 'info');
+        showToast('Caption editing enabled', 'info');
       } else {
         textBlock.contentEditable = 'false';
         textBlock.classList.remove('editing-active');
@@ -2067,14 +2002,14 @@
         updatePostText(rowNumber, newText);
         let html = '';
         if (newText.length > 180) {
-          html = `<span class="post-text-visible">${newText.slice(0,180)}</span><span id="text-hidden-${rowNumber}" style="display:none;">${newText.slice(180)}</span><span id="see-more-${rowNumber}" class="see-more-link" onclick="expandPostText(${rowNumber})">... see more</span><span id="see-less-${rowNumber}" class="see-less-link" style="display:none;" onclick="collapsePostText(${rowNumber})">... see less</span>`;
+          html = `<span class="post-text-visible">${newText.slice(0,180)}</span><span id="text-hidden-${rowNumber}" style="display:none;">${newText.slice(180)}</span><span id="see-more-${rowNumber}" class="see-more-link" onclick="expandPostText(${rowNumber})">… read more</span><span id="see-less-${rowNumber}" class="see-less-link" style="display:none;" onclick="collapsePostText(${rowNumber})">… read less</span>`;
         } else {
           html = `<span class="post-text-visible">${newText}</span>`;
         }
         textBlock.innerHTML = html;
-        btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4z"></path></svg><span>Edit Caption</span>`;
+        btn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4z"></path></svg><span>Edit Caption</span>`;
         btn.classList.remove('editing-btn-active');
-        showToast('Caption saved! ✨', 'success');
+        showToast('Caption saved', 'success');
       }
     }
 
@@ -2144,7 +2079,7 @@
       if (fb) fb.style.display = 'flex';
     }
 
-    /* ===== SUBMIT STATUS ===== */
+    /* ── SUBMIT STATUS ── */
     async function submitStatus(rowNumber, status) {
       const postIndex = postsData.findIndex(p => p.row_number === rowNumber);
       if (postIndex === -1) return;
@@ -2180,8 +2115,8 @@
       }
 
       if (status === 'Approved') {
-        showToast(`Approving post #${rowNumber}...`, 'info');
-        updateStatus('SYNCING', '#ffb347');
+        showToast(`Approving post #${rowNumber}…`, 'info');
+        updateStatus('Syncing', 'var(--amber)');
         addLogEntry(`Submitting approval for post #${rowNumber}...`);
         try {
           const url = new URL(CONFIG.webhookPostApproved);
@@ -2193,16 +2128,16 @@
           const r = await fetch(url.toString(), { method: 'GET', mode: 'cors', headers: { 'Accept': 'application/json' } });
           if (!r.ok) throw new Error(`HTTP ${r.status}`);
           addLogEntry(`Post #${rowNumber} approved & synced.`);
-          showToast(`Post #${rowNumber} approved! ✨`, 'success');
-          updateStatus('CONNECTED', 'var(--signal)');
+          showToast(`Post #${rowNumber} approved`, 'success');
+          updateStatus('Connected', 'var(--signal)');
         } catch (err) {
           addLogEntry(`Approved locally (webhook offline) for post #${rowNumber}.`);
-          showToast('Approved locally (synced) ✓', 'info');
-          updateStatus('CONNECTED', 'var(--signal)');
+          showToast('Approved locally — synced', 'info');
+          updateStatus('Connected', 'var(--signal)');
         }
       } else if (status === 'Redo Requested') {
-        showToast('Sending redo request...', 'info');
-        updateStatus('SYNCING', '#ffb347');
+        showToast('Sending redo request…', 'info');
+        updateStatus('Syncing', 'var(--amber)');
         addLogEntry(`Submitting redo for post #${rowNumber}...`);
         try {
           const url = new URL(CONFIG.webhookPostRejected);
@@ -2212,16 +2147,16 @@
           const r = await fetch(url.toString(), { method: 'GET', mode: 'cors', headers: { 'Accept': 'application/json' } });
           if (!r.ok) throw new Error(`HTTP ${r.status}`);
           addLogEntry(`Redo request sent for post #${rowNumber}.`);
-          showToast('Redo request sent!', 'success');
-          updateStatus('CONNECTED', 'var(--signal)');
+          showToast('Redo request sent', 'success');
+          updateStatus('Connected', 'var(--signal)');
         } catch (err) {
           addLogEntry(`Redo logged locally for post #${rowNumber}.`);
-          showToast('Redo requested locally ✓', 'info');
-          updateStatus('CONNECTED', 'var(--signal)');
+          showToast('Redo requested locally', 'info');
+          updateStatus('Connected', 'var(--signal)');
         }
       } else if (status === 'Rejected') {
-        showToast('Sending revision notes...', 'info');
-        updateStatus('SYNCING', '#ffb347');
+        showToast('Sending revision notes…', 'info');
+        updateStatus('Syncing', 'var(--amber)');
         addLogEntry(`Submitting revision notes for post #${rowNumber}...`);
         try {
           const url = new URL(CONFIG.webhookChangesRequested);
@@ -2233,25 +2168,25 @@
           const r = await fetch(url.toString(), { method: 'GET', mode: 'cors', headers: { 'Accept': 'application/json' } });
           if (!r.ok) throw new Error(`HTTP ${r.status}`);
           addLogEntry(`Revision notes synced for post #${rowNumber}.`);
-          showToast('Revision notes sent! ✓', 'success');
-          updateStatus('CONNECTED', 'var(--signal)');
+          showToast('Revision notes sent', 'success');
+          updateStatus('Connected', 'var(--signal)');
         } catch (err) {
           addLogEntry(`Revision logged locally for post #${rowNumber}.`);
-          showToast('Changes logged locally ✓', 'info');
-          updateStatus('CONNECTED', 'var(--signal)');
+          showToast('Changes logged locally', 'info');
+          updateStatus('Connected', 'var(--signal)');
         }
       }
     }
 
-    /* ===== TOAST ===== */
+    /* ── TOAST ── */
     function showToast(message, type = 'success') {
       const container = document.getElementById('toast-container');
       if (!container) return;
       const toast = document.createElement('div');
       toast.className = `toast ${type === 'toast-error' ? 'toast-error' : (type === 'info' ? 'toast-info' : '')}`;
-      let icon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
-      if (type === 'toast-error') icon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
-      else if (type === 'info') icon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`;
+      let icon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+      if (type === 'toast-error') icon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+      else if (type === 'info') icon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`;
       toast.innerHTML = `${icon}<div class="toast-msg">${message}</div>`;
       container.appendChild(toast);
       setTimeout(() => toast.classList.add('show'), 10);
