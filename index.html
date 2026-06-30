@@ -1346,16 +1346,15 @@
 
     /* Table */
     .cp-table-wrap {
-      overflow-x: auto;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       background: var(--surface);
+      overflow: hidden;
     }
     .cp-table {
       width: 100%;
       border-collapse: collapse;
       font-size: 12px;
-      min-width: 900px;
     }
     .cp-table thead { background: var(--surface2); }
     .cp-table th {
@@ -1372,20 +1371,134 @@
     }
     .cp-th-sortable { cursor: pointer; }
     .cp-th-sortable:hover { color: var(--gold); }
-    .cp-th-num { text-align: right; }
     .sort-icon { color: var(--text-dimmer); font-size: 10px; margin-left: 3px; }
+    .cp-table th { text-align: center; }
     .cp-table td {
       padding: 11px 14px;
       border-bottom: 1px solid var(--border);
       color: var(--text);
       vertical-align: middle;
+      text-align: center;
     }
     .cp-table tr:last-child td { border-bottom: none; }
-    .cp-table tr:hover td { background: var(--surface2); }
-    .cp-td-num { text-align: right; font-family: var(--mono); font-size: 11px; color: var(--text-dim); }
+    .cp-table tr.cp-row-clickable { cursor: pointer; }
+    .cp-table tr.cp-row-clickable:hover td { background: var(--surface2); }
+    .cp-table tr.cp-row-expanded td { background: var(--surface2); }
+    .cp-expand-detail {
+      background: var(--surface3) !important;
+      border-bottom: 2px solid var(--gold-solid) !important;
+    }
+    .cp-expand-inner {
+      padding: 18px 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+    .cp-detail-block { display: flex; flex-direction: column; gap: 5px; text-align: left; }
+    .cp-detail-label {
+      font-size: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-dimmer);
+    }
+    .cp-detail-value { font-size: 12px; color: var(--text); line-height: 1.6; }
+    .cp-script-wrap { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 8px; }
+    .cp-show-script-btn {
+      align-self: flex-start;
+      background: transparent;
+      border: 1px solid var(--border2);
+      color: var(--text-dim);
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cp-show-script-btn:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+    .cp-full-script {
+      display: none;
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.75;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      white-space: pre-wrap;
+    }
+    .cp-td-num { font-family: var(--mono); font-size: 11px; color: var(--text-dim); }
     .cp-td-creator { font-weight: 600; color: var(--text); white-space: nowrap; }
     .cp-td-handle a { color: var(--gold); text-decoration: none; font-size: 11px; }
     .cp-td-handle a:hover { color: var(--gold-light); text-decoration: underline; }
+    .cp-profile-btn {
+      background: var(--gold-dim);
+      border: 1px solid rgba(201,160,99,0.3);
+      color: var(--gold);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      white-space: nowrap;
+      letter-spacing: 0.5px;
+    }
+    .cp-profile-btn:hover { background: var(--gold); color: #0c0b09; }
+    .cp-post-link-btn {
+      background: var(--blue-dim);
+      border: 1px solid rgba(123,175,196,0.3);
+      color: var(--blue);
+      padding: 5px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .cp-post-link-btn:hover { background: var(--blue); color: #fff; }
+    .cp-select-btn {
+      background: var(--green-dim);
+      border: 1px solid rgba(123,172,138,0.3);
+      color: var(--green);
+      padding: 5px 11px;
+      border-radius: var(--radius-sm);
+      font-size: 9px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .cp-select-btn:hover { background: var(--green); color: #0c1810; border-color: var(--green); }
+    .cp-reject-btn {
+      background: var(--red-dim);
+      border: 1px solid rgba(196,123,123,0.3);
+      color: var(--red);
+      padding: 5px 11px;
+      border-radius: var(--radius-sm);
+      font-size: 9px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .cp-reject-btn:hover { background: var(--red); color: #fff; border-color: var(--red); }
     .cp-reach-bar {
       display: flex;
       align-items: center;
@@ -1758,6 +1871,7 @@
             <table class="cp-table" id="watchlist-table">
               <thead>
                 <tr>
+                  <th style="width:120px;">Profile</th>
                   <th style="width:44px;"></th>
                   <th>Creator</th>
                   <th>Handle</th>
@@ -1804,12 +1918,6 @@
           </div>
         </div>
 
-        <!-- Virality bar chart -->
-        <div class="cp-chart-card" id="cp-chart-card" style="display:none;">
-          <div class="cp-chart-title">Avg Virality Score by Creator</div>
-          <div class="cp-bar-chart" id="cp-bar-chart"></div>
-        </div>
-
         <!-- Filters -->
         <div class="cp-filters-row">
           <div class="cp-filter-group">
@@ -1821,31 +1929,15 @@
           <div class="cp-filter-group">
             <label class="cp-filter-label">Status</label>
             <select class="cp-select" id="filter-status" onchange="applyResultsFilters()">
-              <option value="">All Statuses</option>
-              <option value="Pitched">Pitched</option>
-              <option value="Posted">Posted</option>
-              <option value="Negotiating">Negotiating</option>
-              <option value="Declined">Declined</option>
-              <option value="Pending">Pending</option>
+              <option value="Pending" selected>Pending</option>
+              <option value="Selected">Selected</option>
+              <option value="Rejected">Rejected</option>
             </select>
           </div>
           <div class="cp-filter-group">
             <label class="cp-filter-label">Topic</label>
             <select class="cp-select" id="filter-topic" onchange="applyResultsFilters()">
               <option value="">All Topics</option>
-            </select>
-          </div>
-          <div class="cp-filter-group">
-            <label class="cp-filter-label">Sort By</label>
-            <select class="cp-select" id="results-sort" onchange="applyResultsFilters()">
-              <option value="">Default</option>
-              <option value="Views">Views ↓</option>
-              <option value="Plays">Plays ↓</option>
-              <option value="Likes">Likes ↓</option>
-              <option value="Comments">Comments ↓</option>
-              <option value="Engagement Score">Engagement ↓</option>
-              <option value="Virality Score">Virality ↓</option>
-              <option value="Date of Posting">Date ↓</option>
             </select>
           </div>
           <button class="cp-filter-reset" onclick="resetResultsFilters()">
@@ -1874,20 +1966,18 @@
             <table class="cp-table" id="results-table">
               <thead>
                 <tr>
+                  <th>Topic</th>
                   <th>Creator</th>
                   <th>Post Link</th>
                   <th>Date</th>
-                  <th>Topic</th>
-                  <th>Hook</th>
-                  <th class="cp-th-num">Views</th>
-                  <th class="cp-th-num">Plays</th>
-                  <th class="cp-th-num">Likes</th>
-                  <th class="cp-th-num">Comments</th>
-                  <th class="cp-th-num">Eng.</th>
-                  <th class="cp-th-num">Virality</th>
+                  <th class="cp-th-sortable" onclick="sortResults('Views')" data-col="Views">Views <span class="sort-icon" id="si-Views">↕</span></th>
+                  <th class="cp-th-sortable" onclick="sortResults('Plays')" data-col="Plays">Plays <span class="sort-icon" id="si-Plays">↕</span></th>
+                  <th class="cp-th-sortable" onclick="sortResults('Likes')" data-col="Likes">Likes <span class="sort-icon" id="si-Likes">↕</span></th>
+                  <th class="cp-th-sortable" onclick="sortResults('Comments')" data-col="Comments">Comments <span class="sort-icon" id="si-Comments">↕</span></th>
+                  <th class="cp-th-sortable" onclick="sortResults('Engagement Score')" data-col="Engagement Score">Eng. <span class="sort-icon" id="si-Engagement Score">↕</span></th>
+                  <th class="cp-th-sortable" onclick="sortResults('Virality Score')" data-col="Virality Score">Virality <span class="sort-icon" id="si-Virality Score">↕</span></th>
                   <th>Status</th>
-                  <th>Notes</th>
-                  <th style="width:80px;"></th>
+                  <th style="width:140px;">Actions</th>
                 </tr>
               </thead>
               <tbody id="results-tbody"></tbody>
@@ -1909,30 +1999,21 @@
   <div id="status-update-modal" class="su-modal-backdrop" style="display:none;" onclick="closeStatusModal(event)">
     <div class="su-modal">
       <div class="su-modal-header">
-        <div style="font-family:var(--display);font-style:italic;font-size:20px;color:var(--text);font-weight:400;">Update Entry</div>
+        <div id="su-modal-title" style="font-family:var(--display);font-style:italic;font-size:20px;color:var(--text);font-weight:400;">Select Creator</div>
         <button class="su-close-btn" onclick="closeStatusModal()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
       </div>
       <div class="su-modal-meta" id="su-modal-meta"></div>
       <input type="hidden" id="su-post-link">
+      <input type="hidden" id="su-action-type">
       <div class="su-field">
-        <label class="form-label">Status</label>
-        <select class="cp-select" id="su-status" style="width:100%;padding:11px 14px;">
-          <option value="Pitched">Pitched</option>
-          <option value="Negotiating">Negotiating</option>
-          <option value="Posted">Posted</option>
-          <option value="Declined">Declined</option>
-          <option value="Pending">Pending</option>
-        </select>
-      </div>
-      <div class="su-field">
-        <label class="form-label">Notes</label>
+        <label class="form-label">Comments <span style="color:var(--text-dimmer);font-weight:400;letter-spacing:0;">(optional)</span></label>
         <textarea id="su-notes" class="comment-bubble-textarea" style="min-height:80px;resize:vertical;" placeholder="Add any notes or context..."></textarea>
       </div>
       <button class="auth-btn" onclick="submitStatusUpdate()" style="margin-top:4px;" id="su-submit-btn">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        Save Update
+        Confirm
       </button>
     </div>
   </div>
@@ -2863,6 +2944,7 @@
       return n.toFixed(n % 1 === 0 ? 0 : 2);
     }
 
+    /* ── WATCHLIST ── */
     async function fetchWatchlist() {
       showWatchlistLoading(true);
       addLogEntry('Fetching creator watchlist...');
@@ -2896,8 +2978,9 @@
         return watchlistSortAsc ? av - bv : bv - av;
       });
       document.querySelectorAll('#watchlist-table .sort-icon').forEach(el => el.textContent = '↕');
-      const ths = document.querySelectorAll('#watchlist-table th[data-col]');
-      ths.forEach(th => { if (th.dataset.col === col) th.querySelector('.sort-icon').textContent = watchlistSortAsc ? '↑' : '↓'; });
+      document.querySelectorAll('#watchlist-table th[data-col]').forEach(th => {
+        if (th.dataset.col === col) th.querySelector('.sort-icon').textContent = watchlistSortAsc ? '↑' : '↓';
+      });
       renderWatchlist(sorted);
     }
 
@@ -2918,14 +3001,21 @@
         const handle = c['Creator Instagram Handle'] || '';
         const handleDisplay = handle.replace(/https?:\/\/(www\.)?instagram\.com\/?/i,'').replace(/\//g,'') || handle;
         const initials = (c['Creator Name'] || 'C').split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+        const profileBtn = handle
+          ? `<button class="cp-profile-btn" onclick="window.open('${handle}','_blank')">
+               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+               View Instagram Profile
+             </button>`
+          : '—';
         return `<tr>
-          <td><div style="width:36px;height:36px;border-radius:50%;background:var(--gold-dim);border:1px solid rgba(201,160,99,0.2);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-style:italic;color:var(--gold);font-size:13px;">${initials}</div></td>
+          <td>${profileBtn}</td>
+          <td><div style="width:36px;height:36px;border-radius:50%;background:var(--gold-dim);border:1px solid rgba(201,160,99,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto;font-family:var(--display);font-style:italic;color:var(--gold);font-size:13px;">${initials}</div></td>
           <td class="cp-td-creator">${c['Creator Name'] || '—'}</td>
-          <td class="cp-td-handle">${handle ? `<a href="${handle}" target="_blank">@${handleDisplay} <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>` : '—'}</td>
+          <td class="cp-td-handle">${handle ? `<span style="font-size:11px;color:var(--text-dim);">@${handleDisplay}</span>` : '—'}</td>
           <td class="cp-td-num">${fmtNum(c['Follower Count'])}</td>
           <td class="cp-td-num">${c['Median Views'] ? fmtNum(c['Median Views']) : '—'}</td>
           <td>
-            <div class="cp-reach-bar">
+            <div class="cp-reach-bar" style="justify-content:center;">
               <div class="cp-reach-track"><div class="cp-reach-fill" style="width:${Math.min(reach,100)}%"></div></div>
               <span class="cp-reach-val">${reach > 0 ? reach.toFixed(1) : '—'}</span>
             </div>
@@ -2933,6 +3023,10 @@
         </tr>`;
       }).join('');
     }
+
+    /* ── WATCHLIST RESULTS ── */
+    let resultsSortCol = '';
+    let resultsSortAsc = false;
 
     async function fetchWatchlistResults() {
       showResultsLoading(true);
@@ -2942,8 +3036,8 @@
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         const data = await r.json();
         watchlistResultsData = extractArray(data);
-        filteredResultsData = [...watchlistResultsData];
         populateResultsFilters();
+        document.getElementById('filter-status').value = 'Pending';
         applyResultsFilters();
         renderAnalytics(watchlistResultsData);
         addLogEntry(`Loaded ${watchlistResultsData.length} result entries.`);
@@ -2974,73 +3068,63 @@
       if (existingTopic)   tSel.value = existingTopic;
     }
 
+    function sortResults(col) {
+      if (resultsSortCol === col) { resultsSortAsc = !resultsSortAsc; }
+      else { resultsSortCol = col; resultsSortAsc = false; }
+      document.querySelectorAll('#results-table .sort-icon').forEach(el => el.textContent = '↕');
+      const si = document.getElementById(`si-${col}`);
+      if (si) si.textContent = resultsSortAsc ? '↑' : '↓';
+      filteredResultsData = [...filteredResultsData].sort((a,b) => {
+        const av = parseNum(a[col]), bv = parseNum(b[col]);
+        return resultsSortAsc ? av - bv : bv - av;
+      });
+      renderResults(filteredResultsData);
+    }
+
     function applyResultsFilters() {
       const creator = document.getElementById('filter-creator').value;
       const status  = document.getElementById('filter-status').value;
       const topic   = document.getElementById('filter-topic').value;
-      const sortBy  = document.getElementById('results-sort').value;
 
       let data = watchlistResultsData.filter(r => {
         if (creator && r['Creator Name'] !== creator) return false;
-        if (status  && (r['Status'] || '') !== status) return false;
+        if (status  && (r['Status'] || 'Pending') !== status) return false;
         if (topic   && (r['Topic'] || r['Content Topic'] || '') !== topic) return false;
         return true;
       });
 
-      if (sortBy) {
-        data = [...data].sort((a,b) => parseNum(b[sortBy]) - parseNum(a[sortBy]));
-      }
+      resultsSortCol = '';
+      resultsSortAsc = false;
+      document.querySelectorAll('#results-table .sort-icon').forEach(el => el.textContent = '↕');
 
       filteredResultsData = data;
       renderResults(data);
       renderAnalytics(data);
-      renderBarChart(data);
     }
 
     function resetResultsFilters() {
       document.getElementById('filter-creator').value = '';
-      document.getElementById('filter-status').value = '';
+      document.getElementById('filter-status').value = 'Pending';
       document.getElementById('filter-topic').value = '';
-      document.getElementById('results-sort').value = '';
       applyResultsFilters();
     }
 
     function renderAnalytics(data) {
       const row = document.getElementById('cp-analytics-row');
-      const chart = document.getElementById('cp-chart-card');
       if (!row) return;
-      if (data.length === 0) { row.style.display = 'none'; if (chart) chart.style.display = 'none'; return; }
+      if (data.length === 0) { row.style.display = 'none'; return; }
       row.style.display = 'grid';
-      if (chart) { chart.style.display = 'block'; renderBarChart(data); }
-
       const avg = key => { const vals = data.map(r=>parseNum(r[key])).filter(v=>v>0); return vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : 0; };
       const maxCreator = () => {
         const map = {};
         data.forEach(r => { const c = r['Creator Name']; if (c) map[c] = (map[c]||0) + parseNum(r['Virality Score']); });
         return Object.entries(map).sort((a,b)=>b[1]-a[1])[0]?.[0] || '—';
       };
-
       document.getElementById('stat-total').textContent = data.length;
       document.getElementById('stat-avg-views').textContent = fmtNum(avg('Views'));
       document.getElementById('stat-avg-eng').textContent = avg('Engagement Score').toFixed(1);
       document.getElementById('stat-avg-vir').textContent = avg('Virality Score').toFixed(1);
       document.getElementById('stat-top-creator').textContent = maxCreator();
-    }
-
-    function renderBarChart(data) {
-      const el = document.getElementById('cp-bar-chart');
-      if (!el) return;
-      const map = {};
-      data.forEach(r => { const c = r['Creator Name']; if (c) { if (!map[c]) map[c]={sum:0,count:0}; map[c].sum+=parseNum(r['Virality Score']); map[c].count++; } });
-      const sorted = Object.entries(map).map(([name,{sum,count}])=>({name,avg:count?sum/count:0})).sort((a,b)=>b.avg-a.avg).slice(0,10);
-      if (sorted.length === 0) { el.innerHTML = ''; return; }
-      const max = sorted[0].avg || 1;
-      el.innerHTML = sorted.map(({name,avg}) => `
-        <div class="cp-bar-row">
-          <div class="cp-bar-label">${name}</div>
-          <div class="cp-bar-track"><div class="cp-bar-fill" style="width:${(avg/max*100).toFixed(1)}%"></div></div>
-          <div class="cp-bar-val">${avg.toFixed(1)}</div>
-        </div>`).join('');
     }
 
     function renderResults(data) {
@@ -3059,23 +3143,32 @@
       document.getElementById('results-empty').style.display = 'none';
 
       const statusPill = s => {
-        const cls = { Posted:'posted', Pitched:'pitched', Negotiating:'negotiating', Declined:'declined' }[s] || 'pending';
-        return `<span class="cp-status-pill cp-status-${cls}">${s||'—'}</span>`;
+        const cls = { Selected:'posted', Pending:'pending', Rejected:'declined' }[s] || 'pending';
+        return `<span class="cp-status-pill cp-status-${cls}">${s || 'Pending'}</span>`;
       };
 
       const tbody = document.getElementById('results-tbody');
       tbody.innerHTML = data.map((r, i) => {
         const postLink = r['Post Link'] || r['post_link'] || '';
         const linkCell = postLink
-          ? `<div class="cp-post-link"><a href="${postLink}" target="_blank">View <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></div>`
+          ? `<a href="${postLink}" target="_blank" class="cp-post-link-btn">
+               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+               View Post
+             </a>`
           : '<span style="color:var(--text-dimmer);font-size:11px;">—</span>';
-        const notes = r['Notes'] || r['notes'] || '';
-        return `<tr>
+
+        const expandId = `expand-row-${i}`;
+        const hook = r['Hook Format'] || '—';
+        const story = r['Story Telling Flow'] || r['Storytelling Flow'] || r['storytelling_flow'] || '—';
+        const cta = r['CTA'] || '—';
+        const transcript = r['Transcript'] || r['transcript'] || '';
+        const hasExpand = hook !== '—' || story !== '—' || cta !== '—' || transcript;
+
+        return `<tr class="cp-row-clickable" onclick="toggleResultRow(${i}, event)">
+          <td style="font-weight:600;color:var(--text);">${r['Topic'] || r['Content Topic'] || '—'}</td>
           <td class="cp-td-creator">${r['Creator Name'] || '—'}</td>
-          <td>${linkCell}</td>
+          <td onclick="event.stopPropagation()">${linkCell}</td>
           <td style="font-size:11px;color:var(--text-dim);white-space:nowrap;">${r['Date of Posting'] || '—'}</td>
-          <td style="font-size:11px;color:var(--text-dim);">${r['Topic'] || r['Content Topic'] || '—'}</td>
-          <td style="font-size:11px;color:var(--text-dim);">${r['Hook Format'] || '—'}</td>
           <td class="cp-td-num">${r['Views'] ? fmtNum(r['Views']) : '—'}</td>
           <td class="cp-td-num">${r['Plays'] ? fmtNum(r['Plays']) : '—'}</td>
           <td class="cp-td-num">${r['Likes'] ? fmtNum(r['Likes']) : '—'}</td>
@@ -3083,30 +3176,83 @@
           <td class="cp-td-num" style="color:var(--amber);">${r['Engagement Score'] ? parseNum(r['Engagement Score']).toFixed(1) : '—'}</td>
           <td class="cp-td-num" style="color:var(--gold);">${r['Virality Score'] ? parseNum(r['Virality Score']).toFixed(1) : '—'}</td>
           <td>${statusPill(r['Status'])}</td>
-          <td style="font-size:11px;color:var(--text-dim);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${notes}">${notes || '—'}</td>
-          <td>
-            <button class="cp-edit-btn" onclick="openStatusModal(${i})">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4z"></path></svg>
-              Edit
-            </button>
+          <td onclick="event.stopPropagation()">
+            <div style="display:flex;gap:6px;justify-content:center;">
+              <button class="cp-select-btn" onclick="openStatusModal(${i},'select')">Select</button>
+              <button class="cp-reject-btn" onclick="openStatusModal(${i},'reject')">Reject</button>
+            </div>
           </td>
-        </tr>`;
+        </tr>
+        ${hasExpand ? `<tr id="${expandId}" style="display:none;">
+          <td colspan="12" class="cp-expand-detail">
+            <div class="cp-expand-inner">
+              <div class="cp-detail-block">
+                <div class="cp-detail-label">Hook Format</div>
+                <div class="cp-detail-value">${hook}</div>
+              </div>
+              <div class="cp-detail-block">
+                <div class="cp-detail-label">Storytelling Flow</div>
+                <div class="cp-detail-value">${story}</div>
+              </div>
+              <div class="cp-detail-block">
+                <div class="cp-detail-label">CTA</div>
+                <div class="cp-detail-value">${cta}</div>
+              </div>
+              ${transcript ? `<div class="cp-script-wrap">
+                <button class="cp-show-script-btn" id="script-btn-${i}" onclick="toggleScript(${i})">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                  Show Full Script
+                </button>
+                <div id="full-script-${i}" class="cp-full-script">${transcript}</div>
+              </div>` : ''}
+            </div>
+          </td>
+        </tr>` : ''}`;
       }).join('');
     }
 
-    function openStatusModal(idx) {
+    function toggleResultRow(i, e) {
+      if (e && e.target && (e.target.tagName === 'BUTTON' || e.target.tagName === 'A' || e.target.closest('button') || e.target.closest('a'))) return;
+      const expandRow = document.getElementById(`expand-row-${i}`);
+      if (!expandRow) return;
+      const isOpen = expandRow.style.display !== 'none';
+      expandRow.style.display = isOpen ? 'none' : 'table-row';
+      const mainRow = expandRow.previousElementSibling;
+      if (mainRow) mainRow.classList.toggle('cp-row-expanded', !isOpen);
+    }
+
+    function toggleScript(i) {
+      const el = document.getElementById(`full-script-${i}`);
+      const btn = document.getElementById(`script-btn-${i}`);
+      if (!el) return;
+      const isHidden = el.style.display === 'none' || !el.style.display;
+      el.style.display = isHidden ? 'block' : 'none';
+      if (btn) btn.innerHTML = isHidden
+        ? `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg> Hide Script`
+        : `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg> Show Full Script`;
+    }
+
+    function openStatusModal(idx, action) {
       const r = filteredResultsData[idx];
       if (!r) return;
       const modal = document.getElementById('status-update-modal');
       const postLink = r['Post Link'] || r['post_link'] || '';
       document.getElementById('su-post-link').value = postLink;
-      document.getElementById('su-notes').value = r['Notes'] || r['notes'] || '';
-      document.getElementById('su-status').value = r['Status'] || 'Pending';
+      document.getElementById('su-action-type').value = action;
+      document.getElementById('su-notes').value = '';
+      const titleEl = document.getElementById('su-modal-title');
+      if (titleEl) titleEl.textContent = action === 'select' ? 'Select Creator' : 'Reject Creator';
+      const submitBtn = document.getElementById('su-submit-btn');
+      if (submitBtn) {
+        submitBtn.style.borderColor = action === 'select' ? 'var(--green)' : 'var(--red)';
+        submitBtn.style.color = action === 'select' ? 'var(--green)' : 'var(--red)';
+      }
       const meta = document.getElementById('su-modal-meta');
-      meta.innerHTML = `<strong style="color:var(--text);">${r['Creator Name'] || '—'}</strong><br>
+      meta.innerHTML = `<strong style="color:var(--text);">${r['Creator Name'] || '—'}</strong> — ${r['Topic'] || r['Content Topic'] || '—'}<br>
         ${postLink ? `<a href="${postLink}" target="_blank" style="color:var(--gold);font-size:11px;">${postLink.slice(0,60)}${postLink.length>60?'…':''}</a>` : '<span style="color:var(--text-dimmer);">No post link</span>'}`;
       modal.style.display = 'flex';
       modal._resultIdx = idx;
+      setTimeout(() => document.getElementById('su-notes').focus(), 100);
     }
 
     function closeStatusModal(e) {
@@ -3118,45 +3264,39 @@
       const modal = document.getElementById('status-update-modal');
       const idx = modal._resultIdx;
       const postLink = document.getElementById('su-post-link').value;
-      const status   = document.getElementById('su-status').value;
+      const action   = document.getElementById('su-action-type').value;
       const notes    = document.getElementById('su-notes').value.trim();
+      const status   = action === 'select' ? 'Selected' : 'Rejected';
       const btn = document.getElementById('su-submit-btn');
 
       btn.disabled = true;
       btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg> Saving…`;
 
       try {
-        const r = await fetch(CONFIG.webhookUpdateResult, {
-          method: 'POST',
-          mode: 'cors',
+        const resp = await fetch(CONFIG.webhookUpdateResult, {
+          method: 'POST', mode: 'cors',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({ post_link: postLink, status, notes })
         });
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        addLogEntry(`Status updated: ${status} for ${postLink.slice(0,40)}...`);
-        showToast('Status updated successfully', 'success');
-        if (filteredResultsData[idx]) {
-          filteredResultsData[idx]['Status'] = status;
-          filteredResultsData[idx]['Notes']  = notes;
-          const origIdx = watchlistResultsData.findIndex(x => (x['Post Link'] || x['post_link']) === postLink);
-          if (origIdx !== -1) { watchlistResultsData[origIdx]['Status'] = status; watchlistResultsData[origIdx]['Notes'] = notes; }
-        }
-        modal.style.display = 'none';
-        renderResults(filteredResultsData);
-        renderAnalytics(filteredResultsData);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        addLogEntry(`Status set to ${status} for entry #${idx}.`);
+        showToast(`Marked as ${status}`, 'success');
       } catch (err) {
-        addLogEntry(`<span style="color:var(--red);">Update failed: ${err.message}</span>`);
-        showToast('Update saved locally (webhook offline)', 'info');
-        if (filteredResultsData[idx]) {
-          filteredResultsData[idx]['Status'] = status;
-          filteredResultsData[idx]['Notes']  = notes;
-        }
-        modal.style.display = 'none';
-        renderResults(filteredResultsData);
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Save Update`;
+        addLogEntry(`<span style="color:var(--red);">Webhook offline — saved locally.</span>`);
+        showToast(`Marked as ${status} (saved locally)`, 'info');
       }
+
+      if (filteredResultsData[idx]) {
+        filteredResultsData[idx]['Status'] = status;
+        filteredResultsData[idx]['Notes']  = notes;
+        const origIdx = watchlistResultsData.findIndex(x => (x['Post Link'] || x['post_link']) === postLink);
+        if (origIdx !== -1) { watchlistResultsData[origIdx]['Status'] = status; watchlistResultsData[origIdx]['Notes'] = notes; }
+      }
+      modal.style.display = 'none';
+      btn.disabled = false;
+      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Confirm`;
+      renderResults(filteredResultsData);
+      renderAnalytics(filteredResultsData);
     }
 
     /* ── TOAST ── */
