@@ -1475,30 +1475,84 @@
       background: var(--green-dim);
       border: 1px solid rgba(123,172,138,0.3);
       color: var(--green);
-      padding: 5px 11px;
+      padding: 5px 10px;
       border-radius: var(--radius-sm);
       font-size: 9px;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.2s;
       letter-spacing: 0.5px;
       text-transform: uppercase;
+      white-space: nowrap;
     }
-    .cp-select-btn:hover { background: var(--green); color: #0c1810; border-color: var(--green); }
     .cp-reject-btn {
       background: var(--red-dim);
       border: 1px solid rgba(196,123,123,0.3);
       color: var(--red);
-      padding: 5px 11px;
+      padding: 5px 10px;
       border-radius: var(--radius-sm);
       font-size: 9px;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.2s;
       letter-spacing: 0.5px;
       text-transform: uppercase;
+      white-space: nowrap;
     }
-    .cp-reject-btn:hover { background: var(--red); color: #fff; border-color: var(--red); }
+    /* Script popup modal */
+    .script-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(12,11,9,0.92);
+      backdrop-filter: blur(16px);
+      z-index: 10002;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+    .script-modal {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 680px;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-lg), var(--gold-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .script-modal::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .script-modal-header {
+      padding: 20px 24px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+    .script-modal-header-text { display: flex; flex-direction: column; gap: 4px; }
+    .script-modal-title { font-family: var(--display); font-size: 20px; font-weight: 400; font-style: italic; color: var(--text); }
+    .script-modal-meta { font-size: 11px; color: var(--text-dim); }
+    .script-modal-body {
+      padding: 24px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .script-modal-text {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.85;
+      white-space: pre-wrap;
+      font-family: var(--sans);
+    }
     .cp-reach-bar {
       display: flex;
       align-items: center;
@@ -1871,13 +1925,14 @@
             <table class="cp-table" id="watchlist-table">
               <thead>
                 <tr>
-                  <th style="width:120px;">Profile</th>
                   <th style="width:44px;"></th>
                   <th>Creator</th>
                   <th>Handle</th>
                   <th class="cp-th-sortable" onclick="sortWatchlist('Follower Count')" data-col="Follower Count">Followers <span class="sort-icon">↕</span></th>
                   <th class="cp-th-sortable" onclick="sortWatchlist('Median Views')" data-col="Median Views">Median Views <span class="sort-icon">↕</span></th>
-                  <th class="cp-th-sortable" onclick="sortWatchlist('Reach efficiency')" data-col="Reach efficiency">Reach Efficiency <span class="sort-icon">↕</span></th>
+                  <th class="cp-th-sortable" onclick="sortWatchlist('Reach efficiency')" data-col="Reach efficiency">Reach <span class="sort-icon">↕</span></th>
+                  <th class="cp-th-sortable" onclick="sortWatchlist('Engagement Score')" data-col="Engagement Score">Engagement <span class="sort-icon">↕</span></th>
+                  <th style="width:130px;">View Profile</th>
                 </tr>
               </thead>
               <tbody id="watchlist-tbody"></tbody>
@@ -1969,7 +2024,6 @@
                   <th>Topic</th>
                   <th>Creator</th>
                   <th>Post Link</th>
-                  <th>Date</th>
                   <th class="cp-th-sortable" onclick="sortResults('Views')" data-col="Views">Views <span class="sort-icon" id="si-Views">↕</span></th>
                   <th class="cp-th-sortable" onclick="sortResults('Plays')" data-col="Plays">Plays <span class="sort-icon" id="si-Plays">↕</span></th>
                   <th class="cp-th-sortable" onclick="sortResults('Likes')" data-col="Likes">Likes <span class="sort-icon" id="si-Likes">↕</span></th>
@@ -2015,6 +2069,24 @@
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
         Confirm
       </button>
+    </div>
+  </div>
+
+  <!-- SCRIPT POPUP MODAL -->
+  <div id="script-modal" class="script-modal-backdrop" style="display:none;" onclick="closeScriptModal(event)">
+    <div class="script-modal">
+      <div class="script-modal-header">
+        <div class="script-modal-header-text">
+          <div class="script-modal-title">Full Script</div>
+          <div class="script-modal-meta" id="script-modal-meta"></div>
+        </div>
+        <button class="su-close-btn" onclick="closeScriptModal()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="script-modal-body">
+        <div class="script-modal-text" id="script-modal-text"></div>
+      </div>
     </div>
   </div>
 
@@ -2998,20 +3070,20 @@
       const tbody = document.getElementById('watchlist-tbody');
       tbody.innerHTML = data.map(c => {
         const reach = parseNum(c['Reach efficiency'] || c['Reach Efficiency'] || 0);
+        const eng   = parseNum(c['Engagement Score'] || c['Engagement'] || 0);
         const handle = c['Creator Instagram Handle'] || '';
         const handleDisplay = handle.replace(/https?:\/\/(www\.)?instagram\.com\/?/i,'').replace(/\//g,'') || handle;
         const initials = (c['Creator Name'] || 'C').split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
         const profileBtn = handle
           ? `<button class="cp-profile-btn" onclick="window.open('${handle}','_blank')">
                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-               View Instagram Profile
+               View Profile
              </button>`
           : '—';
         return `<tr>
-          <td>${profileBtn}</td>
           <td><div style="width:36px;height:36px;border-radius:50%;background:var(--gold-dim);border:1px solid rgba(201,160,99,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto;font-family:var(--display);font-style:italic;color:var(--gold);font-size:13px;">${initials}</div></td>
           <td class="cp-td-creator">${c['Creator Name'] || '—'}</td>
-          <td class="cp-td-handle">${handle ? `<span style="font-size:11px;color:var(--text-dim);">@${handleDisplay}</span>` : '—'}</td>
+          <td><span style="font-size:11px;color:var(--text-dim);">${handle ? '@' + handleDisplay : '—'}</span></td>
           <td class="cp-td-num">${fmtNum(c['Follower Count'])}</td>
           <td class="cp-td-num">${c['Median Views'] ? fmtNum(c['Median Views']) : '—'}</td>
           <td>
@@ -3020,6 +3092,8 @@
               <span class="cp-reach-val">${reach > 0 ? reach.toFixed(1) : '—'}</span>
             </div>
           </td>
+          <td class="cp-td-num" style="color:var(--amber);">${eng > 0 ? eng.toFixed(1) : '—'}</td>
+          <td>${profileBtn}</td>
         </tr>`;
       }).join('');
     }
@@ -3127,8 +3201,17 @@
       document.getElementById('stat-top-creator').textContent = maxCreator();
     }
 
+    /* Store transcripts outside the DOM to prevent rendering freeze */
+    const _transcriptStore = {};
+
+    let _resultsPage = 0;
+    const RESULTS_PAGE_SIZE = 50;
+
     function renderResults(data) {
       showResultsLoading(false);
+      _resultsPage = 0;
+      Object.keys(_transcriptStore).forEach(k => delete _transcriptStore[k]);
+
       const countEl = document.getElementById('results-tab-count');
       if (countEl) countEl.textContent = data.length;
       const metaEl = document.getElementById('results-count-label');
@@ -3142,33 +3225,60 @@
       document.getElementById('results-content').style.display = 'block';
       document.getElementById('results-empty').style.display = 'none';
 
+      const tbody = document.getElementById('results-tbody');
+      tbody.innerHTML = '';
+      _appendResultRows(data, 0, Math.min(RESULTS_PAGE_SIZE, data.length));
+
+      /* Load more button */
+      const existing = document.getElementById('results-load-more');
+      if (existing) existing.remove();
+      if (data.length > RESULTS_PAGE_SIZE) {
+        const btn = document.createElement('button');
+        btn.id = 'results-load-more';
+        btn.className = 'cp-refresh-btn';
+        btn.style.cssText = 'margin:16px auto;display:flex;';
+        btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg> Load More (${data.length - RESULTS_PAGE_SIZE} remaining)`;
+        btn.onclick = () => {
+          _resultsPage++;
+          const start = _resultsPage * RESULTS_PAGE_SIZE;
+          const end = Math.min(start + RESULTS_PAGE_SIZE, data.length);
+          _appendResultRows(data, start, end);
+          const rem = data.length - end;
+          if (rem <= 0) btn.remove();
+          else btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg> Load More (${rem} remaining)`;
+        };
+        document.getElementById('results-content').appendChild(btn);
+      }
+    }
+
+    function _appendResultRows(data, start, end) {
+      const tbody = document.getElementById('results-tbody');
       const statusPill = s => {
         const cls = { Selected:'posted', Pending:'pending', Rejected:'declined' }[s] || 'pending';
         return `<span class="cp-status-pill cp-status-${cls}">${s || 'Pending'}</span>`;
       };
 
-      const tbody = document.getElementById('results-tbody');
-      tbody.innerHTML = data.map((r, i) => {
+      for (let i = start; i < end; i++) {
+        const r = data[i];
         const postLink = r['Post Link'] || r['post_link'] || '';
-        const linkCell = postLink
-          ? `<a href="${postLink}" target="_blank" class="cp-post-link-btn">
-               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-               View Post
-             </a>`
-          : '<span style="color:var(--text-dimmer);font-size:11px;">—</span>';
-
-        const expandId = `expand-row-${i}`;
-        const hook = r['Hook Format'] || '—';
-        const story = r['Story Telling Flow'] || r['Storytelling Flow'] || r['storytelling_flow'] || '—';
-        const cta = r['CTA'] || '—';
         const transcript = r['Transcript'] || r['transcript'] || '';
-        const hasExpand = hook !== '—' || story !== '—' || cta !== '—' || transcript;
+        if (transcript) _transcriptStore[i] = { text: transcript, creator: r['Creator Name'] || '', topic: r['Topic'] || r['Content Topic'] || '' };
 
-        return `<tr class="cp-row-clickable" onclick="toggleResultRow(${i}, event)">
-          <td style="font-weight:600;color:var(--text);">${r['Topic'] || r['Content Topic'] || '—'}</td>
+        const take  = r['Take for the topic'] || r['Take'] || r['take'] || '';
+        const hook  = r['Hook Format'] || r['hook_format'] || '';
+        const story = r['Story Telling Flow'] || r['Storytelling Flow'] || r['storytelling_flow'] || '';
+        const cta   = r['CTA'] || r['cta'] || '';
+        const hasExpand = take || hook || story || cta || transcript;
+
+        /* main row */
+        const tr = document.createElement('tr');
+        tr.className = 'cp-row-clickable';
+        tr.dataset.idx = i;
+        tr.onclick = (e) => toggleResultRow(i, e);
+        tr.innerHTML = `
+          <td style="font-weight:600;color:var(--text);text-align:left;padding-left:18px;">${r['Topic'] || r['Content Topic'] || '—'}</td>
           <td class="cp-td-creator">${r['Creator Name'] || '—'}</td>
-          <td onclick="event.stopPropagation()">${linkCell}</td>
-          <td style="font-size:11px;color:var(--text-dim);white-space:nowrap;">${r['Date of Posting'] || '—'}</td>
+          <td onclick="event.stopPropagation()">${postLink ? `<a href="${postLink}" target="_blank" class="cp-post-link-btn"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>View Post</a>` : '<span style="color:var(--text-dimmer);font-size:11px;">—</span>'}</td>
           <td class="cp-td-num">${r['Views'] ? fmtNum(r['Views']) : '—'}</td>
           <td class="cp-td-num">${r['Plays'] ? fmtNum(r['Plays']) : '—'}</td>
           <td class="cp-td-num">${r['Likes'] ? fmtNum(r['Likes']) : '—'}</td>
@@ -3177,38 +3287,42 @@
           <td class="cp-td-num" style="color:var(--gold);">${r['Virality Score'] ? parseNum(r['Virality Score']).toFixed(1) : '—'}</td>
           <td>${statusPill(r['Status'])}</td>
           <td onclick="event.stopPropagation()">
-            <div style="display:flex;gap:6px;justify-content:center;">
+            <div style="display:flex;gap:5px;justify-content:center;flex-wrap:nowrap;">
               <button class="cp-select-btn" onclick="openStatusModal(${i},'select')">Select</button>
               <button class="cp-reject-btn" onclick="openStatusModal(${i},'reject')">Reject</button>
             </div>
-          </td>
-        </tr>
-        ${hasExpand ? `<tr id="${expandId}" style="display:none;">
-          <td colspan="12" class="cp-expand-detail">
-            <div class="cp-expand-inner">
-              <div class="cp-detail-block">
-                <div class="cp-detail-label">Hook Format</div>
-                <div class="cp-detail-value">${hook}</div>
-              </div>
-              <div class="cp-detail-block">
-                <div class="cp-detail-label">Storytelling Flow</div>
-                <div class="cp-detail-value">${story}</div>
-              </div>
-              <div class="cp-detail-block">
-                <div class="cp-detail-label">CTA</div>
-                <div class="cp-detail-value">${cta}</div>
-              </div>
-              ${transcript ? `<div class="cp-script-wrap">
-                <button class="cp-show-script-btn" id="script-btn-${i}" onclick="toggleScript(${i})">
+          </td>`;
+        tbody.appendChild(tr);
+
+        /* expand row */
+        if (hasExpand) {
+          const exp = document.createElement('tr');
+          exp.id = `expand-row-${i}`;
+          exp.style.display = 'none';
+          const details = [
+            take  ? { label: 'Take', val: take }   : null,
+            hook  ? { label: 'Hook', val: hook }   : null,
+            story ? { label: 'Storytelling Flow', val: story } : null,
+            cta   ? { label: 'CTA', val: cta }     : null,
+          ].filter(Boolean);
+
+          exp.innerHTML = `<td colspan="11" class="cp-expand-detail">
+            <div class="cp-expand-inner" style="display:grid;grid-template-columns:repeat(${Math.min(details.length,4)},1fr);gap:20px;align-items:start;">
+              ${details.map(d => `<div class="cp-detail-block">
+                <div class="cp-detail-label">${d.label}</div>
+                <div class="cp-detail-value">${d.val}</div>
+              </div>`).join('')}
+              ${transcript ? `<div class="cp-detail-block" style="grid-column:1/-1;margin-top:4px;">
+                <button class="cp-show-script-btn" onclick="openScriptModal(${i},event)">
                   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
                   Show Full Script
                 </button>
-                <div id="full-script-${i}" class="cp-full-script">${transcript}</div>
               </div>` : ''}
             </div>
-          </td>
-        </tr>` : ''}`;
-      }).join('');
+          </td>`;
+          tbody.appendChild(exp);
+        }
+      }
     }
 
     function toggleResultRow(i, e) {
@@ -3221,15 +3335,21 @@
       if (mainRow) mainRow.classList.toggle('cp-row-expanded', !isOpen);
     }
 
-    function toggleScript(i) {
-      const el = document.getElementById(`full-script-${i}`);
-      const btn = document.getElementById(`script-btn-${i}`);
-      if (!el) return;
-      const isHidden = el.style.display === 'none' || !el.style.display;
-      el.style.display = isHidden ? 'block' : 'none';
-      if (btn) btn.innerHTML = isHidden
-        ? `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg> Hide Script`
-        : `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg> Show Full Script`;
+    function openScriptModal(i, e) {
+      if (e) e.stopPropagation();
+      const entry = _transcriptStore[i];
+      if (!entry) return;
+      const modal = document.getElementById('script-modal');
+      const metaEl = document.getElementById('script-modal-meta');
+      const textEl = document.getElementById('script-modal-text');
+      if (metaEl) metaEl.textContent = `${entry.creator}${entry.topic ? ' — ' + entry.topic : ''}`;
+      if (textEl) textEl.textContent = entry.text;
+      modal.style.display = 'flex';
+    }
+
+    function closeScriptModal(e) {
+      if (e && e.target !== document.getElementById('script-modal')) return;
+      document.getElementById('script-modal').style.display = 'none';
     }
 
     function openStatusModal(idx, action) {
@@ -3262,7 +3382,7 @@
 
     async function submitStatusUpdate() {
       const modal = document.getElementById('status-update-modal');
-      const idx = modal._resultIdx;
+      const idx    = modal._resultIdx;
       const postLink = document.getElementById('su-post-link').value;
       const action   = document.getElementById('su-action-type').value;
       const notes    = document.getElementById('su-notes').value.trim();
@@ -3272,31 +3392,30 @@
       btn.disabled = true;
       btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg> Saving…`;
 
-      try {
-        const resp = await fetch(CONFIG.webhookUpdateResult, {
-          method: 'POST', mode: 'cors',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({ post_link: postLink, status, notes })
-        });
-        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-        addLogEntry(`Status set to ${status} for entry #${idx}.`);
-        showToast(`Marked as ${status}`, 'success');
-      } catch (err) {
-        addLogEntry(`<span style="color:var(--red);">Webhook offline — saved locally.</span>`);
-        showToast(`Marked as ${status} (saved locally)`, 'info');
-      }
+      /* Update master data */
+      const origIdx = watchlistResultsData.findIndex(x => (x['Post Link'] || x['post_link']) === postLink);
+      if (origIdx !== -1) { watchlistResultsData[origIdx]['Status'] = status; watchlistResultsData[origIdx]['Notes'] = notes; }
+      if (filteredResultsData[idx]) { filteredResultsData[idx]['Status'] = status; filteredResultsData[idx]['Notes'] = notes; }
 
-      if (filteredResultsData[idx]) {
-        filteredResultsData[idx]['Status'] = status;
-        filteredResultsData[idx]['Notes']  = notes;
-        const origIdx = watchlistResultsData.findIndex(x => (x['Post Link'] || x['post_link']) === postLink);
-        if (origIdx !== -1) { watchlistResultsData[origIdx]['Status'] = status; watchlistResultsData[origIdx]['Notes'] = notes; }
-      }
       modal.style.display = 'none';
       btn.disabled = false;
       btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Confirm`;
-      renderResults(filteredResultsData);
-      renderAnalytics(filteredResultsData);
+
+      /* Re-apply filters so the row disappears from current view */
+      applyResultsFilters();
+      showToast(`Marked as ${status}`, 'success');
+
+      /* Fire webhook in background */
+      fetch(CONFIG.webhookUpdateResult, {
+        method: 'POST', mode: 'cors',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ post_link: postLink, status, notes })
+      }).then(r => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        addLogEntry(`Status set to ${status} for entry synced.`);
+      }).catch(() => {
+        addLogEntry(`<span style="color:var(--text-dim);">Webhook offline — status saved locally.</span>`);
+      });
     }
 
     /* ── TOAST ── */
